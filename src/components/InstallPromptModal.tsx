@@ -155,15 +155,12 @@ export const InstallPromptModal: React.FC = () => {
           </button>
 
           <div className="flex items-center gap-3.5">
-            <div className="w-13 h-13 bg-white rounded-2xl p-2 shadow-lg flex items-center justify-center shrink-0">
+            <div className="w-13 h-13 bg-slate-900 rounded-2xl p-1 shadow-lg flex items-center justify-center shrink-0 border border-emerald-400/30 overflow-hidden">
               <img
-                src="/icon.svg"
+                src="/favicon.png"
                 alt="ShapeChef"
-                className="w-full h-full object-contain"
-                onError={(e) => {
-                  // Fallback to emoji if svg not rendered
-                  (e.target as HTMLElement).style.display = 'none';
-                }}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover rounded-xl"
               />
             </div>
             <div>

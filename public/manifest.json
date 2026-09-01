@@ -4,10 +4,15 @@
   "description": "Aplicación de recetas hiperproteicas, menús y cálculo de macros.",
   "icons": [
     {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/icon.svg",
       "type": "image/svg+xml",
-      "sizes": "192x192 512x512",
-      "purpose": "any maskable"
+      "sizes": "any"
     }
   ],
   "start_url": "/",
