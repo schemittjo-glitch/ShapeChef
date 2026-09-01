@@ -8,25 +8,25 @@ export const BottomNav: React.FC = () => {
   const navItems = [
     {
       id: 'home',
-      label: 'Início',
+      label: 'Inicio',
       icon: Home,
       badge: null,
     },
     {
       id: 'recipes',
-      label: 'Receitas',
+      label: 'Recetas',
       icon: UtensilsCrossed,
       badge: null,
     },
     {
       id: 'mealplan',
-      label: 'Semana',
+      label: 'Menú',
       icon: CalendarDays,
       badge: null,
     },
     {
       id: 'diary',
-      label: 'Diário',
+      label: 'Diario',
       icon: PlusCircle,
       isAction: true,
       badge: null,
@@ -39,9 +39,9 @@ export const BottomNav: React.FC = () => {
     },
     {
       id: 'bonus',
-      label: 'Bônus',
+      label: 'Bonos',
       icon: Gift,
-      badge: 'NOVO',
+      badge: 'NUEVO',
     },
   ];
 

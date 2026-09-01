@@ -176,9 +176,9 @@ export const MealPlannerView: React.FC = () => {
   // Convert meal type string to MealType union
   const mapMealType = (typeStr: string): MealType => {
     const t = typeStr.toLowerCase();
-    if (t.includes('café') || t.includes('cafe')) return 'cafe';
-    if (t.includes('lanche')) return 'lanche';
-    if (t.includes('jantar')) return 'jantar';
+    if (t.includes('café') || t.includes('cafe') || t.includes('desayuno')) return 'cafe';
+    if (t.includes('lanche') || t.includes('merienda') || t.includes('snack')) return 'lanche';
+    if (t.includes('jantar') || t.includes('cena')) return 'jantar';
     return 'almoco';
   };
 
@@ -187,7 +187,7 @@ export const MealPlannerView: React.FC = () => {
     addMealItem({
       mealType: mapMealType(mealTypeStr),
       name: recipe.name,
-      amount: '1 porção',
+      amount: '1 porción',
       calories: recipe.calories,
       protein: recipe.protein,
       carbs: recipe.carbs,
@@ -206,7 +206,7 @@ export const MealPlannerView: React.FC = () => {
         addMealItem({
           mealType: mapMealType(meal.type),
           name: rec.name,
-          amount: '1 porção',
+          amount: '1 porción',
           calories: rec.calories,
           protein: rec.protein,
           carbs: rec.carbs,
@@ -247,14 +247,14 @@ export const MealPlannerView: React.FC = () => {
   const getGoalTitle = (goal: FitnessGoal) => {
     switch (goal) {
       case 'perda_gordura':
-        return 'Queima & Perda de Gordura';
+        return 'Quema y Pérdida de Grasa';
       case 'hipertrofia':
-        return 'Hipertrofia & Construção';
+        return 'Hipertrofia y Definición';
       case 'ganho_massa':
-        return 'Ganho de Massa (Bulking Limpo)';
+        return 'Aumento de Masa (Volumen Limpio)';
       case 'manutencao':
       default:
-        return 'Manutenção & Longevidade';
+        return 'Mantenimiento y Longevidad';
     }
   };
 
@@ -267,14 +267,14 @@ export const MealPlannerView: React.FC = () => {
             <div className="flex items-center gap-2 mb-1">
               <span className="text-xl">📅</span>
               <h1 className="text-2xl font-bold text-slate-800 tracking-tight">
-                Cardápio da Semana
+                Menú Semanal
               </h1>
               <span className="bg-emerald-100 text-emerald-800 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full border border-emerald-200">
-                4 Refeições / Dia
+                4 Comidas / Día
               </span>
             </div>
             <p className="text-xs sm:text-sm text-slate-500">
-              Planejamento nutricional completo sincronizado com as metas do seu perfil ({userProfile.name})
+              Planificación nutricional completa sincronizada con los objetivos de tu perfil ({userProfile.name})
             </p>
           </div>
 
@@ -300,12 +300,12 @@ export const MealPlannerView: React.FC = () => {
               {shoppingGeneratedSuccess ? (
                 <>
                   <Check className="w-4 h-4" />
-                  <span>Lista da Semana Gerada!</span>
+                  <span>¡Lista Semanal Generada!</span>
                 </>
               ) : (
                 <>
                   <ShoppingCart className="w-4 h-4 text-emerald-700" />
-                  <span>Gerar Lista de Compras</span>
+                  <span>Generar Lista de Compras</span>
                 </>
               )}
             </button>
@@ -318,7 +318,7 @@ export const MealPlannerView: React.FC = () => {
             <div className="flex items-center gap-2">
               <User className="w-4 h-4 text-emerald-600" />
               <span className="text-xs font-bold text-slate-800">
-                Suas Metas Diárias Calculadas ({userProfile.name} • {userProfile.weight}kg)
+                Tus Objetivos Diarios Calculados ({userProfile.name} • {userProfile.weight}kg)
               </span>
             </div>
             <span className="text-[11px] text-emerald-700 font-bold bg-white px-2 py-0.5 rounded-md border border-emerald-200 shadow-2xs">
@@ -329,17 +329,17 @@ export const MealPlannerView: React.FC = () => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <div className="bg-white p-3 rounded-xl border border-slate-200/80 shadow-2xs">
               <span className="text-[10px] font-bold uppercase text-amber-700 block mb-0.5">
-                🔥 Calorias Meta
+                🔥 Calorías Objetivo
               </span>
               <div className="text-base sm:text-lg font-black text-slate-800">
                 {calculatedGoals.calories}{' '}
-                <span className="text-[10px] font-medium text-slate-400">kcal/dia</span>
+                <span className="text-[10px] font-medium text-slate-400">kcal/día</span>
               </div>
             </div>
 
             <div className="bg-white p-3 rounded-xl border border-slate-200/80 shadow-2xs">
               <span className="text-[10px] font-bold uppercase text-emerald-700 block mb-0.5">
-                🥩 Proteína Meta
+                🥩 Proteína Objetivo
               </span>
               <div className="text-base sm:text-lg font-black text-slate-800">
                 {calculatedGoals.protein}g{' '}
@@ -351,21 +351,21 @@ export const MealPlannerView: React.FC = () => {
 
             <div className="bg-white p-3 rounded-xl border border-slate-200/80 shadow-2xs">
               <span className="text-[10px] font-bold uppercase text-blue-700 block mb-0.5">
-                🍚 Carboidratos Meta
+                🍚 Carbohidratos Objetivo
               </span>
               <div className="text-base sm:text-lg font-black text-slate-800">
                 {calculatedGoals.carbs}g{' '}
-                <span className="text-[10px] font-medium text-slate-400">energia</span>
+                <span className="text-[10px] font-medium text-slate-400">energía</span>
               </div>
             </div>
 
             <div className="bg-white p-3 rounded-xl border border-slate-200/80 shadow-2xs">
               <span className="text-[10px] font-bold uppercase text-slate-700 block mb-0.5">
-                🥑 Gorduras Meta
+                🥑 Grasas Objetivo
               </span>
               <div className="text-base sm:text-lg font-black text-slate-800">
                 {calculatedGoals.fats}g{' '}
-                <span className="text-[10px] font-medium text-slate-400">saciedade</span>
+                <span className="text-[10px] font-medium text-slate-400">saciedad</span>
               </div>
             </div>
           </div>
@@ -375,10 +375,10 @@ export const MealPlannerView: React.FC = () => {
       {/* 2. Goal Selector Tabs */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { id: 'perda_gordura', label: 'Perda de gordura', icon: '🔥', cals: '1.750 kcal' },
+          { id: 'perda_gordura', label: 'Pérdida de grasa', icon: '🔥', cals: '1.750 kcal' },
           { id: 'hipertrofia', label: 'Hipertrofia', icon: '🏋️', cals: '2.450 kcal' },
-          { id: 'ganho_massa', label: 'Ganho de massa', icon: '💪', cals: '2.650 kcal' },
-          { id: 'manutencao', label: 'Manutenção', icon: '⚖️', cals: '2.150 kcal' },
+          { id: 'ganho_massa', label: 'Aumento de masa', icon: '💪', cals: '2.650 kcal' },
+          { id: 'manutencao', label: 'Mantenimiento', icon: '⚖️', cals: '2.150 kcal' },
         ].map((tab) => {
           const isActive = selectedGoal === tab.id;
           return (
@@ -404,7 +404,7 @@ export const MealPlannerView: React.FC = () => {
                 <span className="text-[11px] font-bold text-emerald-700">{tab.cals}</span>
                 {userProfile.goal === tab.id && (
                   <span className="text-[9px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">
-                    Seu Perfil
+                    Tu Perfil
                   </span>
                 )}
               </div>
@@ -423,10 +423,10 @@ export const MealPlannerView: React.FC = () => {
           <button
             onClick={handleResetToDefault}
             className="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-600 hover:text-slate-800 hover:bg-slate-50 text-[11px] font-bold flex items-center gap-1 transition-colors"
-            title="Restaurar receitas padrão deste plano"
+            title="Restaurar recetas predeterminadas de este plan"
           >
             <RefreshCw className="w-3.5 h-3.5 text-slate-400" />
-            <span>Restaurar Padrão</span>
+            <span>Restaurar Predeterminado</span>
           </button>
         </div>
       </div>
@@ -434,8 +434,8 @@ export const MealPlannerView: React.FC = () => {
       {/* 4. Days of the Week Selector Pills (All 7 Days) */}
       <div className="space-y-2">
         <div className="flex items-center justify-between text-xs font-bold text-slate-700 px-1">
-          <span>Selecione o Dia da Semana (7 dias completos)</span>
-          <span className="text-slate-400 text-[11px] font-medium">4 refeições balanceadas por dia</span>
+          <span>Selecciona el Día de la Semana (7 días completos)</span>
+          <span className="text-slate-400 text-[11px] font-medium">4 comidas equilibradas al día</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
           {currentPlan.days.map((day, idx) => {
@@ -452,7 +452,7 @@ export const MealPlannerView: React.FC = () => {
               >
                 <span className="block">{day.dayName.split('-')[0]}</span>
                 <span className={`text-[10px] block font-medium ${isSelected ? 'text-emerald-100' : 'text-slate-400'}`}>
-                  4 refeições
+                  4 comidas
                 </span>
               </button>
             );
@@ -467,11 +467,11 @@ export const MealPlannerView: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
               <h3 className="text-base font-bold text-slate-800">
-                Resumo Nutricional: {currentDay.dayName}
+                Resumen Nutricional: {currentDay.dayName}
               </h3>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Soma das 4 refeições planejadas para este dia comparadas com as metas do seu perfil
+              Suma de las 4 comidas planificadas para este día comparadas con los objetivos de tu perfil
             </p>
           </div>
 
@@ -487,12 +487,12 @@ export const MealPlannerView: React.FC = () => {
             {dayLoggedSuccess ? (
               <>
                 <Check className="w-4 h-4" />
-                <span>Dia Registrado no Diário!</span>
+                <span>¡Día Registrado en el Diario!</span>
               </>
             ) : (
               <>
                 <PlusCircle className="w-4 h-4 text-emerald-700" />
-                <span>Adicionar Dia Inteiro ao Diário</span>
+                <span>Añadir Día Completo al Diario</span>
               </>
             )}
           </button>
@@ -503,7 +503,7 @@ export const MealPlannerView: React.FC = () => {
           {/* Calories */}
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
             <div className="flex justify-between items-center mb-1">
-              <span className="font-bold text-amber-800">🔥 Calorias</span>
+              <span className="font-bold text-amber-800">🔥 Calorías</span>
               <span className="font-bold text-slate-700">
                 {dayNutrients.calories} / {calculatedGoals.calories} kcal
               </span>
@@ -517,7 +517,7 @@ export const MealPlannerView: React.FC = () => {
               ></div>
             </div>
             <span className="text-[10px] text-slate-500 mt-1 block text-right">
-              {Math.round((dayNutrients.calories / calculatedGoals.calories) * 100)}% da meta
+              {Math.round((dayNutrients.calories / calculatedGoals.calories) * 100)}% del objetivo
             </span>
           </div>
 
@@ -538,14 +538,14 @@ export const MealPlannerView: React.FC = () => {
               ></div>
             </div>
             <span className="text-[10px] text-slate-500 mt-1 block text-right">
-              {Math.round((dayNutrients.protein / calculatedGoals.protein) * 100)}% da meta
+              {Math.round((dayNutrients.protein / calculatedGoals.protein) * 100)}% del objetivo
             </span>
           </div>
 
           {/* Carbs */}
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
             <div className="flex justify-between items-center mb-1">
-              <span className="font-bold text-blue-800">🍚 Carboidratos</span>
+              <span className="font-bold text-blue-800">🍚 Carbohidratos</span>
               <span className="font-bold text-slate-700">
                 {dayNutrients.carbs}g / {calculatedGoals.carbs}g
               </span>
@@ -559,14 +559,14 @@ export const MealPlannerView: React.FC = () => {
               ></div>
             </div>
             <span className="text-[10px] text-slate-500 mt-1 block text-right">
-              {Math.round((dayNutrients.carbs / calculatedGoals.carbs) * 100)}% da meta
+              {Math.round((dayNutrients.carbs / calculatedGoals.carbs) * 100)}% del objetivo
             </span>
           </div>
 
           {/* Fats */}
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
             <div className="flex justify-between items-center mb-1">
-              <span className="font-bold text-slate-800">🥑 Gorduras</span>
+              <span className="font-bold text-slate-800">🥑 Grasas</span>
               <span className="font-bold text-slate-700">
                 {dayNutrients.fats}g / {calculatedGoals.fats}g
               </span>
@@ -580,7 +580,7 @@ export const MealPlannerView: React.FC = () => {
               ></div>
             </div>
             <span className="text-[10px] text-slate-500 mt-1 block text-right">
-              {Math.round((dayNutrients.fats / calculatedGoals.fats) * 100)}% da meta
+              {Math.round((dayNutrients.fats / calculatedGoals.fats) * 100)}% del objetivo
             </span>
           </div>
         </div>
@@ -590,10 +590,10 @@ export const MealPlannerView: React.FC = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-base font-bold text-slate-800 flex items-center gap-2">
-            <span>🍽️</span> As 4 Refeições de {currentDay.dayName}
+            <span>🍽️</span> Las 4 Comidas de {currentDay.dayName}
           </h3>
           <span className="text-xs text-slate-500 font-medium">
-            Clique na refeição para ver o modo de preparo ou clique em "Trocar" para substituir
+            Haz clic en la comida para ver la receta o en "Cambiar" para sustituir
           </span>
         </div>
 
@@ -607,13 +607,13 @@ export const MealPlannerView: React.FC = () => {
             // Meal label colors
             let badgeBg = 'bg-amber-100 text-amber-900 border-amber-200';
             let mealEmoji = '🌅';
-            if (meal.type.toLowerCase().includes('almoço') || meal.type.toLowerCase().includes('almoco')) {
+            if (meal.type.toLowerCase().includes('almoço') || meal.type.toLowerCase().includes('almoco') || meal.type.toLowerCase().includes('almuerzo')) {
               badgeBg = 'bg-emerald-100 text-emerald-900 border-emerald-200';
               mealEmoji = '🥗';
-            } else if (meal.type.toLowerCase().includes('lanche')) {
+            } else if (meal.type.toLowerCase().includes('lanche') || meal.type.toLowerCase().includes('merienda')) {
               badgeBg = 'bg-blue-100 text-blue-900 border-blue-200';
               mealEmoji = '🥪';
-            } else if (meal.type.toLowerCase().includes('jantar')) {
+            } else if (meal.type.toLowerCase().includes('jantar') || meal.type.toLowerCase().includes('cena')) {
               badgeBg = 'bg-purple-100 text-purple-900 border-purple-200';
               mealEmoji = '🍲';
             }
@@ -681,7 +681,7 @@ export const MealPlannerView: React.FC = () => {
                     className="text-slate-500 hover:text-emerald-700 font-bold flex items-center gap-1 transition-colors px-2 py-1 rounded hover:bg-slate-50"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
-                    <span>Trocar Receita</span>
+                    <span>Cambiar Receta</span>
                   </button>
 
                   <div className="flex items-center gap-2">
@@ -696,12 +696,12 @@ export const MealPlannerView: React.FC = () => {
                       {isLogged ? (
                         <>
                           <Check className="w-3 h-3" />
-                          <span>Adicionado!</span>
+                          <span>¡Añadido!</span>
                         </>
                       ) : (
                         <>
                           <PlusCircle className="w-3 h-3" />
-                          <span>+ Diário</span>
+                          <span>+ Diario</span>
                         </>
                       )}
                     </button>
@@ -710,7 +710,7 @@ export const MealPlannerView: React.FC = () => {
                       onClick={() => setSelectedRecipe(recipe)}
                       className="px-2.5 py-1 rounded-lg font-bold text-[11px] bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1"
                     >
-                      <span>Ver Receita</span>
+                      <span>Ver Receta</span>
                       <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>
@@ -730,10 +730,10 @@ export const MealPlannerView: React.FC = () => {
               <div>
                 <h3 className="font-bold text-slate-800 text-base flex items-center gap-2">
                   <RefreshCw className="w-4 h-4 text-emerald-600" />
-                  <span>Substituir {swappingMealInfo.mealType}</span>
+                  <span>Sustituir {swappingMealInfo.mealType}</span>
                 </h3>
                 <p className="text-xs text-slate-500">
-                  Escolha qualquer receita do catálogo para o cardápio deste dia
+                  Elige cualquier receta del catálogo para el menú de este día
                 </p>
               </div>
               <button
@@ -750,7 +750,7 @@ export const MealPlannerView: React.FC = () => {
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
-                  placeholder="Buscar por nome ou ingrediente..."
+                  placeholder="Buscar por nombre o ingrediente..."
                   value={swapSearchQuery}
                   onChange={(e) => setSwapSearchQuery(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-800 focus:outline-hidden focus:border-emerald-500 focus:bg-white"
@@ -760,15 +760,15 @@ export const MealPlannerView: React.FC = () => {
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none text-[11px]">
                 {[
                   'Todos',
-                  'Café da manhã',
-                  'Lanches',
-                  'Almoço',
-                  'Jantar',
-                  'Frango',
+                  'Desayuno',
+                  'Meriendas',
+                  'Almuerzo',
+                  'Cena',
+                  'Pollo',
                   'Carne',
-                  'Peixes',
-                  'Ovos',
-                  'Sobremesas',
+                  'Pescados',
+                  'Huevos',
+                  'Postres',
                 ].map((cat) => (
                   <button
                     key={cat}
@@ -789,7 +789,7 @@ export const MealPlannerView: React.FC = () => {
             <div className="p-4 overflow-y-auto flex-1 space-y-2.5 max-h-[450px]">
               {filteredSwapRecipes.length === 0 ? (
                 <div className="text-center py-10 text-slate-400 text-xs">
-                  Nenhuma receita encontrada para essa busca.
+                  Ninguna receta encontrada para esta búsqueda.
                 </div>
               ) : (
                 filteredSwapRecipes.map((rec) => {
@@ -830,7 +830,7 @@ export const MealPlannerView: React.FC = () => {
                             : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-xs'
                         }`}
                       >
-                        {isCurrent ? 'Atual' : 'Escolher'}
+                        {isCurrent ? 'Actual' : 'Elegir'}
                       </button>
                     </div>
                   );

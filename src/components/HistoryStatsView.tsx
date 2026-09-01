@@ -47,10 +47,10 @@ export const HistoryStatsView: React.FC = () => {
       const dayCarbs = dayItems.reduce((acc, it) => acc + (it.carbs || 0), 0);
       const dayFats = dayItems.reduce((acc, it) => acc + (it.fats || 0), 0);
 
-      // Short label e.g. "Seg", "Ter" or "14/05"
+      // Short label e.g. "Lun", "Mar" or "14/05"
       const dayLabel =
         periodDays === 7
-          ? d.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '')
+          ? d.toLocaleDateString('es-ES', { weekday: 'short' }).replace('.', '')
           : `${d.getDate()}/${d.getMonth() + 1}`;
 
       data.push({
@@ -102,10 +102,10 @@ export const HistoryStatsView: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
         <div>
           <h1 className="text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
-            <span>📈</span> Histórico & Estatísticas
+            <span>📈</span> Historial y Estadísticas
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            Acompanhe sua consistência de proteína e evolução nutricional
+            Sigue tu consistencia de proteína y evolución nutricional
           </p>
         </div>
 
@@ -121,7 +121,7 @@ export const HistoryStatsView: React.FC = () => {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              {days} dias
+              {days} días
             </button>
           ))}
         </div>
@@ -131,53 +131,53 @@ export const HistoryStatsView: React.FC = () => {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-            <span className="text-emerald-700 font-bold">Média de Proteína</span>
+            <span className="text-emerald-700 font-bold">Promedio de Proteína</span>
             <Dumbbell className="w-3.5 h-3.5 text-emerald-600" />
           </div>
           <div className="text-xl font-black text-slate-800">
-            {stats.avgProt}g <span className="text-xs font-normal text-slate-500">/dia</span>
+            {stats.avgProt}g <span className="text-xs font-normal text-slate-500">/día</span>
           </div>
           <span className="text-[10px] text-slate-500 mt-1 block">
-            Meta: {calculatedGoals.protein}g/dia
+            Objetivo: {calculatedGoals.protein}g/día
           </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-            <span className="text-amber-700 font-bold">Média de Calorias</span>
+            <span className="text-amber-700 font-bold">Promedio de Calorías</span>
             <Flame className="w-3.5 h-3.5 text-amber-500" />
           </div>
           <div className="text-xl font-black text-slate-800">
-            {stats.avgCals} <span className="text-xs font-normal text-slate-500">kcal/dia</span>
+            {stats.avgCals} <span className="text-xs font-normal text-slate-500">kcal/día</span>
           </div>
           <span className="text-[10px] text-slate-500 mt-1 block">
-            Meta: {calculatedGoals.calories} kcal
+            Objetivo: {calculatedGoals.calories} kcal
           </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-            <span className="text-blue-700 font-bold">Carboidratos</span>
+            <span className="text-blue-700 font-bold">Carbohidratos</span>
             <span>🍚</span>
           </div>
           <div className="text-xl font-black text-slate-800">
-            {stats.avgCarbs}g <span className="text-xs font-normal text-slate-500">/dia</span>
+            {stats.avgCarbs}g <span className="text-xs font-normal text-slate-500">/día</span>
           </div>
           <span className="text-[10px] text-slate-500 mt-1 block">
-            Meta: {calculatedGoals.carbs}g
+            Objetivo: {calculatedGoals.carbs}g
           </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-            <span className="text-slate-700 font-bold">Taxa de Consistência</span>
+            <span className="text-slate-700 font-bold">Tasa de Consistencia</span>
             <Award className="w-3.5 h-3.5 text-emerald-600" />
           </div>
           <div className="text-xl font-black text-emerald-700">
             {stats.consistencyPct}%
           </div>
           <span className="text-[10px] text-slate-500 mt-1 block">
-            {stats.goalMetDays} de {stats.daysWithDataCount} dias na meta
+            {stats.goalMetDays} de {stats.daysWithDataCount} días en el objetivo
           </span>
         </div>
       </div>
@@ -188,10 +188,10 @@ export const HistoryStatsView: React.FC = () => {
           <div className="space-y-0.5">
             <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-emerald-600" />
-              Consumo Diário de Proteína ({periodDays} dias)
+              Consumo Diario de Proteína ({periodDays} días)
             </h3>
             <p className="text-xs text-slate-500">
-              Linha pontilhada representa sua meta diária ({calculatedGoals.protein}g)
+              La línea punteada representa tu objetivo diario ({calculatedGoals.protein}g)
             </p>
           </div>
         </div>
@@ -218,7 +218,7 @@ export const HistoryStatsView: React.FC = () => {
                 stroke="#059669"
                 strokeDasharray="4 4"
                 label={{
-                  value: `Meta ${calculatedGoals.protein}g`,
+                  value: `Objetivo ${calculatedGoals.protein}g`,
                   fill: '#059669',
                   fontSize: 10,
                   position: 'insideTopRight',
@@ -242,7 +242,7 @@ export const HistoryStatsView: React.FC = () => {
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
             <Flame className="w-4 h-4 text-amber-500" />
-            Consumo Calórico por Dia
+            Consumo Calórico por Día
           </h3>
         </div>
 
@@ -260,7 +260,7 @@ export const HistoryStatsView: React.FC = () => {
                   fontSize: '12px',
                   boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                 }}
-                formatter={(value: any) => [`${value} kcal`, 'Calorias']}
+                formatter={(value: any) => [`${value} kcal`, 'Calorías']}
               />
               <Bar dataKey="calorias" fill="#f59e0b" radius={[4, 4, 0, 0]} />
             </BarChart>
@@ -270,7 +270,7 @@ export const HistoryStatsView: React.FC = () => {
 
       {/* 5. Past Days Quick Log Navigator */}
       <div className="space-y-3">
-        <h3 className="text-sm font-bold text-slate-800">Registros dos Últimos Dias</h3>
+        <h3 className="text-sm font-bold text-slate-800">Registros de los Últimos Días</h3>
         <div className="space-y-2">
           {chartData.slice(-7).reverse().map((day) => {
             const isMet = day.proteina >= calculatedGoals.protein;
@@ -301,7 +301,7 @@ export const HistoryStatsView: React.FC = () => {
                       {day.proteina}g proteína
                     </span>
                     <span className="text-[10px] text-slate-500">
-                      {isMet ? 'Meta atingida 🎉' : 'Abaixo da meta'}
+                      {isMet ? '¡Objetivo alcanzado! 🎉' : 'Por debajo del objetivo'}
                     </span>
                   </div>
                   <ChevronRight className="w-4 h-4 text-slate-400" />

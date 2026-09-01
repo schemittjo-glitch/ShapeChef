@@ -11,6 +11,7 @@ import {
   User,
   Gift,
   ChefHat,
+  Download,
 } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
@@ -19,15 +20,15 @@ export const Sidebar: React.FC = () => {
   const uncheckedShoppingCount = shoppingList.filter((i) => !i.checked).length;
 
   const navItems = [
-    { id: 'home', label: 'Início', icon: Home },
-    { id: 'recipes', label: 'Receitas', icon: UtensilsCrossed, badge: favorites.length > 0 ? `${favorites.length} fav` : null },
-    { id: 'mealplan', label: 'Semana', icon: CalendarDays },
-    { id: 'diary', label: 'Diário', icon: PlusCircle },
-    { id: 'fridge', label: 'Geladeira', icon: Refrigerator },
+    { id: 'home', label: 'Inicio', icon: Home },
+    { id: 'recipes', label: 'Recetas', icon: UtensilsCrossed, badge: favorites.length > 0 ? `${favorites.length} fav` : null },
+    { id: 'mealplan', label: 'Menú Semanal', icon: CalendarDays },
+    { id: 'diary', label: 'Diario', icon: PlusCircle },
+    { id: 'fridge', label: 'Refrigerador', icon: Refrigerator },
     { id: 'shopping', label: 'Compras', icon: ShoppingCart, badge: uncheckedShoppingCount > 0 ? `${uncheckedShoppingCount}` : null },
-    { id: 'history', label: 'Histórico', icon: TrendingUp },
+    { id: 'history', label: 'Historial', icon: TrendingUp },
     { id: 'profile', label: 'Perfil', icon: User },
-    { id: 'bonus', label: 'Bônus', icon: Gift, isHighlight: true },
+    { id: 'bonus', label: 'Bonos', icon: Gift, isHighlight: true },
   ];
 
   return (
@@ -39,19 +40,18 @@ export const Sidebar: React.FC = () => {
       <div className="p-6 pb-4">
         <div
           onClick={() => setActiveTab('home')}
-          className="flex items-center gap-2.5 cursor-pointer group"
+          className="flex items-center gap-2 cursor-pointer group"
         >
-          <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold italic shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform">
-            S
-          </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <h1 className="text-xl font-black tracking-tight text-slate-800">ShapeChef</h1>
+              <h1 className="text-2xl font-black tracking-tight text-slate-800">
+                Shape<span className="text-emerald-600">Chef</span>
+              </h1>
               <span className="text-[10px] uppercase font-extrabold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">
                 PRO
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 font-medium -mt-0.5">Receitas & Macros</p>
+            <p className="text-[11px] text-slate-500 font-medium -mt-0.5">Recetas & Macros</p>
           </div>
         </div>
       </div>
@@ -98,18 +98,26 @@ export const Sidebar: React.FC = () => {
         })}
       </div>
 
-      {/* Bottom Bonus Box matching Professional Polish theme */}
-      <div className="p-4 bg-slate-50 border-t border-slate-200 mt-auto">
+      {/* Bottom Bonus Box & Install Prompt */}
+      <div className="p-4 bg-slate-50 border-t border-slate-200 mt-auto space-y-3">
+        <button
+          onClick={() => window.dispatchEvent(new Event('open-shapechef-install'))}
+          className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all shadow-2xs hover:border-emerald-300 hover:text-emerald-700 cursor-pointer"
+        >
+          <Download className="w-3.5 h-3.5 text-emerald-600" />
+          <span>Instalar App en el Móvil</span>
+        </button>
+
         <div className="p-4 bg-emerald-600 rounded-xl text-white shadow-md space-y-1">
           <div className="flex items-center justify-between">
             <p className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-100">
-              Bônus Ativo
+              Bono Activo
             </p>
             <span className="text-xs">🎁</span>
           </div>
-          <p className="text-xs font-bold text-white">Guia de Proteína Caseira</p>
+          <p className="text-xs font-bold text-white">Guía de Proteína Casera</p>
           <p className="text-[11px] text-emerald-100 leading-tight">
-            Economize e atinja sua meta diária de forma simples.
+            Ahorra dinero y alcanza tu meta diaria de forma simple.
           </p>
           <button
             onClick={() => setActiveTab('bonus')}

@@ -149,18 +149,18 @@ export const RecipesView: React.FC = () => {
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
               <span>{showOnlyFavorites ? '❤️' : '🍳'}</span>
-              <span>{showOnlyFavorites ? 'Receitas Favoritas' : 'Catálogo de Receitas'}</span>
+              <span>{showOnlyFavorites ? 'Recetas Favoritas' : 'Catálogo de Recetas'}</span>
             </h1>
             {showOnlyFavorites && (
               <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-rose-500 text-white shadow-xs">
-                {favorites.length} {favorites.length === 1 ? 'salva' : 'salvas'}
+                {favorites.length} {favorites.length === 1 ? 'guardada' : 'guardadas'}
               </span>
             )}
           </div>
           <p className="text-xs text-slate-500 mt-1">
             {showOnlyFavorites
-              ? 'Exibindo apenas as receitas que você marcou com o coração para acesso rápido.'
-              : 'Mais de 25 receitas hiperproteicas balanceadas, práticas e saborosas.'}
+              ? 'Mostrando solo las recetas que marcaste con el corazón para acceso rápido.'
+              : `${recipes.length} recetas hiperproteicas equilibradas, prácticas y deliciosas (Desayuno, Almuerzo y Postres).`}
           </p>
         </div>
 
@@ -173,7 +173,7 @@ export const RecipesView: React.FC = () => {
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:text-slate-900 shadow-xs transition-all"
             >
               <span>🍳</span>
-              <span>Ver todo o catálogo ({recipes.length})</span>
+              <span>Ver todo el catálogo ({recipes.length})</span>
             </button>
           ) : (
             <button
@@ -202,7 +202,7 @@ export const RecipesView: React.FC = () => {
               type="text"
               value={recipeSearchQuery}
               onChange={(e) => setRecipeSearchQuery(e.target.value)}
-              placeholder="Buscar por nome ou ingrediente (ex: Parmegiana, frango + queijo, aveia, banana...)"
+              placeholder="Buscar por nombre o ingrediente (ej: Parmesana, pollo + queso, avena, plátano...)"
               className="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-xs rounded-xl pl-10 pr-9 py-2.5 focus:outline-none focus:border-emerald-500 focus:bg-white transition-colors"
             />
             {recipeSearchQuery && (
@@ -239,7 +239,7 @@ export const RecipesView: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
             <span className="text-slate-600 font-bold flex items-center gap-1">
               <Dumbbell className="w-3.5 h-3.5 text-emerald-600" />
-              Mínimo de proteína:
+              Proteína mínima:
             </span>
 
             <div className="flex items-center flex-wrap gap-1.5">
@@ -251,7 +251,7 @@ export const RecipesView: React.FC = () => {
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
-                Qualquer
+                Cualquiera
               </button>
 
               {proteinPresets.map((val) => (
@@ -272,7 +272,7 @@ export const RecipesView: React.FC = () => {
 
               {/* Custom protein target field */}
               <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg px-2 py-0.5 ml-1">
-                <span className="text-[11px] text-slate-500">Pelo menos:</span>
+                <span className="text-[11px] text-slate-500">Al menos:</span>
                 <input
                   type="number"
                   min="0"
@@ -282,7 +282,7 @@ export const RecipesView: React.FC = () => {
                     const val = e.target.value ? parseInt(e.target.value, 10) : null;
                     setRecipeFilterProteinMin(val);
                   }}
-                  placeholder="ex: 35"
+                  placeholder="ej: 35"
                   className="w-12 bg-transparent text-xs text-emerald-700 font-bold focus:outline-none text-center"
                 />
                 <span className="text-[11px] text-slate-500">g</span>
@@ -308,7 +308,7 @@ export const RecipesView: React.FC = () => {
         </button>
 
         {CATEGORIES_LIST.map((cat) => {
-          const isActive = !showOnlyFavorites && recipeActiveCategory === cat;
+          const isActive拼 = !showOnlyFavorites && recipeActiveCategory === cat;
           return (
             <button
               key={cat}
@@ -317,7 +317,7 @@ export const RecipesView: React.FC = () => {
                 setRecipeActiveCategory(cat);
               }}
               className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
-                isActive
+                isActive拼
                   ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
                   : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900'
               }`}
@@ -332,10 +332,10 @@ export const RecipesView: React.FC = () => {
       {activeFiltersCount > 0 && (
         <div className="flex items-center justify-between text-xs bg-emerald-50 p-2.5 rounded-xl border border-emerald-100">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-emerald-800 font-bold">Filtros ativos:</span>
+            <span className="text-emerald-800 font-bold">Filtros activos:</span>
             {showOnlyFavorites && (
               <span className="px-2 py-0.5 rounded bg-rose-500 text-white text-[11px] font-bold shadow-2xs">
-                ❤️ Apenas Favoritas ({favorites.length})
+                ❤️ Solo Favoritas ({favorites.length})
               </span>
             )}
             {recipeFilterProteinMin && (
@@ -345,12 +345,12 @@ export const RecipesView: React.FC = () => {
             )}
             {filterMaxCalories && (
               <span className="px-2 py-0.5 rounded bg-white text-amber-700 border border-amber-200 text-[11px] font-bold">
-                🔥 Até {filterMaxCalories} kcal
+                🔥 Hasta {filterMaxCalories} kcal
               </span>
             )}
             {filterMaxTime && (
               <span className="px-2 py-0.5 rounded bg-white text-blue-700 border border-blue-200 text-[11px] font-bold">
-                ⏱️ Até {filterMaxTime} min
+                ⏱️ Hasta {filterMaxTime} min
               </span>
             )}
             {filterCookingMethod && (
@@ -370,7 +370,7 @@ export const RecipesView: React.FC = () => {
             className="text-emerald-700 hover:text-emerald-800 text-xs font-bold flex items-center gap-1 shrink-0"
           >
             <RotateCcw className="w-3 h-3" />
-            <span>Limpar filtros</span>
+            <span>Limpiar filtros</span>
           </button>
         </div>
       )}
@@ -384,12 +384,12 @@ export const RecipesView: React.FC = () => {
             {showOnlyFavorites ? '❤️' : '🍳'}
           </div>
           <h3 className="text-base font-bold text-slate-800">
-            {showOnlyFavorites ? 'Nenhuma receita favoritada ainda' : 'Nenhuma receita encontrada'}
+            {showOnlyFavorites ? 'Aún no tienes recetas favoritas' : 'Ninguna receta encontrada'}
           </h3>
           <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
             {showOnlyFavorites
-              ? 'Clique no ícone de coração (❤️) em qualquer receita do catálogo para salvá-la. Todas as suas receitas marcadas ficam reunidas aqui para acesso rápido pelo topo!'
-              : 'Não encontramos receitas com os filtros selecionados. Tente reduzir o valor mínimo de proteína ou buscar por outro termo.'}
+              ? 'Haz clic en el icono de corazón (❤️) en cualquier receta del catálogo para guardarla. ¡Todas tus recetas marcadas se reúnen aquí para un acceso rápido desde la parte superior!'
+              : 'No encontramos recetas con los filtros seleccionados. Intenta reducir el valor mínimo de proteína o buscar por otro término.'}
           </p>
           <button
             onClick={() => {
@@ -401,7 +401,7 @@ export const RecipesView: React.FC = () => {
             }}
             className="px-5 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl hover:bg-emerald-700 transition-colors shadow-xs"
           >
-            {showOnlyFavorites ? 'Explorar todas as receitas' : 'Ver todas as receitas'}
+            {showOnlyFavorites ? 'Explorar todas las recetas' : 'Ver todas las recetas'}
           </button>
         </div>
       ) : (
@@ -435,7 +435,7 @@ export const RecipesView: React.FC = () => {
                         ? 'bg-rose-500 text-white shadow-md shadow-rose-500/40'
                         : 'bg-white/80 text-slate-700 hover:text-rose-500 hover:bg-white'
                     }`}
-                    title={isFav ? 'Remover dos favoritos' : 'Favoritar receita'}
+                    title={isFav ? 'Eliminar de favoritos' : 'Añadir a favoritos'}
                   >
                     <Heart className={`w-4 h-4 ${isFav ? 'fill-current' : ''}`} />
                   </button>
@@ -467,7 +467,7 @@ export const RecipesView: React.FC = () => {
                       </span>
                       {recipe.isEconomic && (
                         <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
-                          💰 Econômica
+                          💰 Económica
                         </span>
                       )}
                     </div>
@@ -479,7 +479,7 @@ export const RecipesView: React.FC = () => {
                   {/* Macros breakdown mini-bar */}
                   <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200 grid grid-cols-4 gap-1 text-center">
                     <div>
-                      <span className="text-[10px] text-slate-500 block">Calorias</span>
+                      <span className="text-[10px] text-slate-500 block">Calorías</span>
                       <span className="text-xs font-bold text-amber-600">{recipe.calories}</span>
                     </div>
                     <div>
@@ -491,7 +491,7 @@ export const RecipesView: React.FC = () => {
                       <span className="text-xs font-bold text-blue-600">{recipe.carbs}g</span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-500 block">Gordura</span>
+                      <span className="text-[10px] text-slate-500 block">Grasas</span>
                       <span className="text-xs font-bold text-slate-600">{recipe.fats}g</span>
                     </div>
                   </div>
@@ -509,7 +509,7 @@ export const RecipesView: React.FC = () => {
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="w-5 h-5 text-emerald-600" />
-                <h3 className="text-base font-bold text-slate-800">Filtros Avançados</h3>
+                <h3 className="text-base font-bold text-slate-800">Filtros Avanzados</h3>
               </div>
               <button
                 onClick={() => setIsFilterModalOpen(false)}
@@ -546,7 +546,7 @@ export const RecipesView: React.FC = () => {
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                 <Flame className="w-4 h-4 text-amber-500" />
-                Calorias máximas
+                Calorías máximas
               </label>
               <div className="grid grid-cols-4 gap-2">
                 {[250, 350, 450, 550].map((v) => (
@@ -559,7 +559,7 @@ export const RecipesView: React.FC = () => {
                         : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
-                    Até {v}
+                    Hasta {v}
                   </button>
                 ))}
               </div>
@@ -569,7 +569,7 @@ export const RecipesView: React.FC = () => {
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                 <Clock className="w-4 h-4 text-blue-500" />
-                Tempo de Preparo
+                Tiempo de Preparación
               </label>
               <div className="grid grid-cols-3 gap-2">
                 {[10, 15, 30].map((v) => (
@@ -582,7 +582,7 @@ export const RecipesView: React.FC = () => {
                         : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
-                    Até {v} min
+                    Hasta {v} min
                   </button>
                 ))}
               </div>
@@ -590,9 +590,9 @@ export const RecipesView: React.FC = () => {
 
             {/* Filter by Cooking Method */}
             <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700">Modo de preparo</label>
+              <label className="text-xs font-bold text-slate-700">Método de preparación</label>
               <div className="grid grid-cols-3 gap-2">
-                {['Airfryer', 'Frigideira', 'Forno', 'Panela'].map((method) => (
+                {['Airfryer', 'Sartén', 'Horno', 'Olla', 'Batidora', 'Microondas'].map((method) => (
                   <button
                     key={method}
                     onClick={() =>
@@ -612,9 +612,9 @@ export const RecipesView: React.FC = () => {
 
             {/* Filter by Protein Source */}
             <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700">Fonte principal de proteína</label>
+              <label className="text-xs font-bold text-slate-700">Fuente principal de proteína</label>
               <div className="grid grid-cols-3 gap-2">
-                {['Frango', 'Carne', 'Ovos', 'Peixes', 'Whey'].map((source) => (
+                {['Pollo', 'Carne', 'Huevos', 'Pescados', 'Whey', 'Yogur'].map((source) => (
                   <button
                     key={source}
                     onClick={() =>
@@ -638,13 +638,13 @@ export const RecipesView: React.FC = () => {
                 onClick={handleResetFilters}
                 className="text-xs text-slate-500 hover:text-slate-800 font-bold"
               >
-                Limpar todos
+                Limpiar todos
               </button>
               <button
                 onClick={() => setIsFilterModalOpen(false)}
                 className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs"
               >
-                Aplicar Filtros ({filteredRecipes.length} receitas)
+                Aplicar Filtros ({filteredRecipes.length} recetas)
               </button>
             </div>
           </div>

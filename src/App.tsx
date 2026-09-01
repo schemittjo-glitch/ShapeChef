@@ -13,6 +13,7 @@ import { ShoppingListView } from './components/ShoppingListView';
 import { ProfileView } from './components/ProfileView';
 import { BonusHubView } from './components/BonusHubView';
 import { RecipeModal } from './components/RecipeModal';
+import { InstallPromptModal } from './components/InstallPromptModal';
 
 const AppContent: React.FC = () => {
   const { activeTab } = useApp();
@@ -60,6 +61,9 @@ const AppContent: React.FC = () => {
 
       {/* Recipe Modal */}
       <RecipeModal />
+
+      {/* PWA Install & Add to Home Screen Prompt Modal */}
+      <InstallPromptModal />
 
       {/* Bottom Navigation for Mobile / Tablet */}
       <div className="lg:hidden">

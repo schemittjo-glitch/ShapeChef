@@ -1,22 +1,25 @@
 export type MealCategory =
-  | 'Café da manhã'
-  | 'Lanches'
-  | 'Almoço'
-  | 'Jantar'
-  | 'Sobremesas'
-  | 'Receitas rápidas'
+  | 'Desayuno'
+  | 'Meriendas'
+  | 'Almuerzo'
+  | 'Cena'
+  | 'Postres'
+  | 'Recetas rápidas'
   | 'Airfryer'
-  | 'Frigideira'
-  | 'Forno'
-  | 'Receitas econômicas'
-  | 'Frango'
+  | 'Sartén'
+  | 'Horno'
+  | 'Recetas económicas'
+  | 'Pollo'
   | 'Carne'
-  | 'Ovos'
-  | 'Peixes'
-  | 'Outras proteínas';
+  | 'Huevos'
+  | 'Pescados'
+  | 'Lácteos'
+  | 'Vegetal'
+  | 'Whey'
+  | 'Otras proteínas';
 
-export type CookingMethod = 'Airfryer' | 'Frigideira' | 'Forno' | 'Panela' | 'Sem cozimento';
-export type ProteinSource = 'Frango' | 'Carne' | 'Ovos' | 'Peixes' | 'Peixe' | 'Laticínios' | 'Vegetal' | 'Whey' | 'Outras proteínas';
+export type CookingMethod = 'Airfryer' | 'Sartén' | 'Horno' | 'Olla' | 'Sin cocción';
+export type ProteinSource = 'Pollo' | 'Carne' | 'Huevos' | 'Pescados' | 'Lácteos' | 'Vegetal' | 'Whey' | 'Otras proteínas';
 
 export interface Recipe {
   id: string;
@@ -37,11 +40,17 @@ export interface Recipe {
   ingredients: {
     item: string;
     amount: string;
-    normalizedName: string; // for fridge matching (e.g. 'frango', 'ovo', 'queijo')
+    normalizedName: string; // for fridge matching (e.g. 'pollo', 'huevo', 'queso')
   }[];
   instructions: string[];
   tips?: string;
   servings?: number;
+  porcao_referencia?: string;
+  quantidade_referencia?: string;
+  porcoes_totais?: number;
+  unidade_porcao?: string;
+  shelfLife?: string;
+  storageMethod?: string;
 }
 
 export type MealType = 'cafe' | 'almoco' | 'lanche' | 'jantar' | 'ceia';
@@ -50,7 +59,7 @@ export interface MealLogItem {
   id: string;
   mealType: MealType;
   name: string;
-  amount: string; // e.g. "1 porção (250g)" or "100g"
+  amount: string; // e.g. "1 porción (250g)" or "100g"
   calories: number;
   protein: number;
   carbs: number;
@@ -91,7 +100,7 @@ export interface ShoppingItem {
   id: string;
   name: string;
   amount: string;
-  category: 'Carnes & Proteínas' | 'Laticínios & Ovos' | 'Hortifruti' | 'Mercearia & Grãos' | 'Outros';
+  category: 'Carnes & Proteínas' | 'Lácteos & Huevos' | 'Frutas & Verduras' | 'Despensa & Granos' | 'Otros';
   checked: boolean;
   recipeSource?: string;
 }
@@ -124,6 +133,7 @@ export interface BonusMaterial {
   tag: string;
   description: string;
   type: 'workout' | 'macros' | 'homemade_protein';
+  externalUrl?: string;
   content: {
     intro: string;
     sections: {

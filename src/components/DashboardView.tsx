@@ -63,49 +63,50 @@ export const DashboardView: React.FC = () => {
   const categoryCards = useMemo(() => {
     const countCafeLanches = recipes.filter(
       (r) =>
-        r.categories?.some((c) => ['Café da manhã', 'Lanches'].includes(c)) ||
-        ['Café da manhã', 'Lanches'].includes(r.category)
+        r.categories?.some((c) => ['Desayuno', 'Meriendas y Snacks', 'Café da manhã', 'Lanches'].includes(c)) ||
+        ['Desayuno', 'Meriendas y Snacks', 'Café da manhã', 'Lanches'].includes(r.category)
     ).length;
 
     const countAlmocoJantar = recipes.filter(
       (r) =>
-        r.categories?.some((c) => ['Almoço', 'Jantar'].includes(c)) ||
-        ['Almoço', 'Jantar'].includes(r.category)
+        r.categories?.some((c) => ['Almuerzo', 'Cena', 'Almoço', 'Jantar'].includes(c)) ||
+        ['Almuerzo', 'Cena', 'Almoço', 'Jantar'].includes(r.category)
     ).length;
 
     const countSobremesas = recipes.filter(
       (r) =>
-        r.categories?.some((c) => ['Sobremesas'].includes(c)) ||
+        r.categories?.some((c) => ['Postres', 'Sobremesas'].includes(c)) ||
+        r.category === 'Postres' ||
         r.category === 'Sobremesas'
     ).length;
 
     return [
       {
         id: 'cafe-lanches',
-        title: 'Café & Lanches',
-        categoryTarget: 'Café da manhã',
+        title: 'Desayuno & Snacks',
+        categoryTarget: 'Desayuno',
         count: countCafeLanches,
         imageUrl:
-          'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&auto=format&fit=crop&q=80',
-        badge: 'Energia & Praticidade',
+          'https://fitproreceitasproteicas.lovable.app/assets/cafe-da-manha-DC3uyx-m.jpg',
+        badge: 'Energía & Rapidez',
       },
       {
         id: 'almoco-jantar',
-        title: 'Almoço & Jantar',
-        categoryTarget: 'Almoço',
+        title: 'Almuerzo & Cena',
+        categoryTarget: 'Almuerzo',
         count: countAlmocoJantar,
         imageUrl:
-          'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80',
-        badge: 'Pratos Principais',
+          'https://fitproreceitasproteicas.lovable.app/assets/almoco-janta-F_o_ToVd.jpg',
+        badge: 'Platos Principales',
       },
       {
         id: 'sobremesas',
-        title: 'Sobremesas',
-        categoryTarget: 'Sobremesas',
+        title: 'Postres',
+        categoryTarget: 'Postres',
         count: countSobremesas,
         imageUrl:
-          'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&auto=format&fit=crop&q=80',
-        badge: 'Doces Proteicos',
+          'https://fitproreceitasproteicas.lovable.app/assets/sobremesas-saKXeFqD.jpg',
+        badge: 'Dulces Proteicos',
       },
     ];
   }, [recipes]);
@@ -118,15 +119,15 @@ export const DashboardView: React.FC = () => {
 
   // Greeting based on local time
   const currentHour = new Date().getHours();
-  let greeting = 'Bom dia';
+  let greeting = '¡Buenos días';
   if (currentHour >= 12 && currentHour < 18) {
-    greeting = 'Boa tarde';
+    greeting = '¡Buenas tardes';
   } else if (currentHour >= 18 || currentHour < 5) {
-    greeting = 'Boa noite';
+    greeting = '¡Buenas noches';
   }
 
   // Today formatted
-  const todayFormatted = new Intl.DateTimeFormat('pt-BR', {
+  const todayFormatted = new Intl.DateTimeFormat('es-ES', {
     day: 'numeric',
     month: 'long',
   }).format(new Date());
@@ -160,12 +161,12 @@ export const DashboardView: React.FC = () => {
           <h2 className="text-lg sm:text-xl font-bold text-slate-800 tracking-tight">
             {hasProfile
               ? `${greeting}, ${userProfile.name}! 👋`
-              : `${greeting}, Crie seu perfil! 👋`}
+              : `${greeting}, ¡Crea tu perfil! 👋`}
           </h2>
           <p className="text-slate-500 font-medium text-xs mt-0.5">
             {hasProfile
-              ? `Hoje é ${todayFormatted} • Acompanhe suas metas de hoje`
-              : `Hoje é ${todayFormatted} • Configure seus dados para calcular suas metas personalizadas.`}
+              ? `Hoy es ${todayFormatted} • Sigue tus objetivos de hoy`
+              : `Hoy es ${todayFormatted} • Configura tus datos para calcular tus metas personalizadas.`}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -175,7 +176,7 @@ export const DashboardView: React.FC = () => {
               onClick={() => setActiveTab('profile')}
               className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-full text-xs shadow-2xs transition-colors"
             >
-              Criar Perfil
+              Crear Perfil
             </button>
           )}
           <button
@@ -183,14 +184,14 @@ export const DashboardView: React.FC = () => {
             onClick={() => setActiveTab('diary')}
             className="px-3.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold rounded-full text-xs border border-emerald-200 transition-colors shadow-2xs"
           >
-            + Registrar Refeição
+            + Registrar Comida
           </button>
           <button
             id="btn-quick-fridge"
             onClick={() => setActiveTab('fridge')}
             className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full text-xs shadow-2xs transition-colors"
           >
-            Modo Geladeira
+            Modo Refrigerador
           </button>
         </div>
       </div>
@@ -203,10 +204,10 @@ export const DashboardView: React.FC = () => {
           <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                Resumo de Macros
+                Resumen de Macros
               </h3>
               <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-100">
-                {proteinPct >= 100 ? 'Meta Atingida! 🎉' : `${proteinPct}% da proteína`}
+                {proteinPct >= 100 ? '¡Meta Alcanzada! 🎉' : `${proteinPct}% de la proteína`}
               </span>
             </div>
 
@@ -227,14 +228,14 @@ export const DashboardView: React.FC = () => {
                   />
                 </div>
                 <p className="text-[10px] text-slate-400 font-bold">
-                  {proteinRemaining > 0 ? `Faltam ${proteinRemaining}g` : 'Meta concluída!'}
+                  {proteinRemaining > 0 ? `Faltan ${proteinRemaining}g` : '¡Meta cumplida!'}
                 </p>
               </div>
 
               {/* Calorias */}
               <div className="space-y-1.5">
                 <div className="flex justify-between items-end">
-                  <span className="text-xs font-bold text-slate-700">Calorias</span>
+                  <span className="text-xs font-bold text-slate-700">Calorías</span>
                   <span className="text-xs font-bold text-amber-600">
                     {caloriesConsumed}/{caloriesGoal}
                   </span>
@@ -246,14 +247,14 @@ export const DashboardView: React.FC = () => {
                   />
                 </div>
                 <p className="text-[10px] text-slate-400 font-bold">
-                  {caloriesRemaining > 0 ? `Restam ${caloriesRemaining} kcal` : 'Limite do dia atingido'}
+                  {caloriesRemaining > 0 ? `Quedan ${caloriesRemaining} kcal` : 'Límite del día alcanzado'}
                 </p>
               </div>
 
               {/* Carbo */}
               <div className="space-y-1.5">
                 <div className="flex justify-between items-end">
-                  <span className="text-xs font-bold text-slate-700">Carbo</span>
+                  <span className="text-xs font-bold text-slate-700">Carbohidratos</span>
                   <span className="text-xs font-bold text-blue-600">
                     {carbsConsumed}/{carbsGoal}g
                   </span>
@@ -264,13 +265,13 @@ export const DashboardView: React.FC = () => {
                     style={{ width: `${carbsPct}%` }}
                   />
                 </div>
-                <p className="text-[10px] text-slate-400 font-bold">{carbsPct}% atingido</p>
+                <p className="text-[10px] text-slate-400 font-bold">{carbsPct}% alcanzado</p>
               </div>
 
               {/* Gordura */}
               <div className="space-y-1.5">
                 <div className="flex justify-between items-end">
-                  <span className="text-xs font-bold text-slate-700">Gordura</span>
+                  <span className="text-xs font-bold text-slate-700">Grasas</span>
                   <span className="text-xs font-bold text-slate-500">
                     {fatsConsumed}/{fatsGoal}g
                   </span>
@@ -293,15 +294,15 @@ export const DashboardView: React.FC = () => {
                 <span className="text-[10px] font-black text-slate-800">{proteinPct}%</span>
               </div>
               <p className="text-xs text-slate-600 leading-tight">
-                Você já atingiu{' '}
+                ¡Ya has alcanzado{' '}
                 <span className="font-bold text-slate-800">
                   {proteinPct >= 100
-                    ? '100% da sua meta'
+                    ? 'el 100% de tu meta'
                     : proteinPct >= 50
-                    ? 'mais da metade da meta'
-                    : `${proteinPct}% da meta`}
+                    ? 'más de la mitad de la meta'
+                    : `${proteinPct}% de tu meta`}
                 </span>{' '}
-                de proteína hoje!
+                de proteína hoy!
               </p>
             </div>
           </div>
@@ -313,10 +314,10 @@ export const DashboardView: React.FC = () => {
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-5">
             <div>
               <h3 className="text-base sm:text-lg font-bold text-slate-800 tracking-tight">
-                Modo Geladeira
+                Modo Refrigerador
               </h3>
               <p className="text-xs text-slate-500 mt-1 mb-4">
-                Escreva o que você tem na geladeira. Pode separar por vírgula.
+                Escribe lo que tienes en el refrigerador. Puedes separarlo por comas.
               </p>
 
               {/* Input field with search icon matching Image 2 */}
@@ -326,7 +327,7 @@ export const DashboardView: React.FC = () => {
                   type="text"
                   value={fridgeQuery}
                   onChange={(e) => setFridgeQuery(e.target.value)}
-                  placeholder="ex: frango, ovo, queijo"
+                  placeholder="ej: pollo, huevo, queso"
                   className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 rounded-full py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 shadow-2xs focus:outline-none transition-all"
                 />
               </form>
@@ -335,18 +336,18 @@ export const DashboardView: React.FC = () => {
               <div className="space-y-3 pt-3 border-t border-slate-100">
                 <div className="flex items-center justify-between">
                   <p className="text-xs font-black text-slate-800 uppercase tracking-wider">
-                    {fridgeQuery.trim() ? 'Receitas encontradas:' : 'Sugerido para você:'}
+                    {fridgeQuery.trim() ? 'Recetas encontradas:' : 'Sugerido para ti:'}
                   </p>
                   {fridgeQuery.trim() && (
                     <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full border border-emerald-100">
-                      {matchingFridgeRecipes.length} receitas
+                      {matchingFridgeRecipes.length} recetas
                     </span>
                   )}
                 </div>
 
                 {matchingFridgeRecipes.length === 0 ? (
                   <div className="py-4 text-center text-xs text-slate-400">
-                    Nenhuma receita encontrada com estes ingredientes.
+                    Ninguna receta encontrada con estos ingredientes.
                   </div>
                 ) : (
                   matchingFridgeRecipes.map((r) => (
@@ -381,7 +382,7 @@ export const DashboardView: React.FC = () => {
               onClick={handleSearchFridge}
               className="w-full py-3 bg-slate-900 text-white rounded-xl font-bold text-xs hover:bg-slate-800 transition-colors shadow-sm text-center"
             >
-              Encontrar Receitas com Meus Itens
+              Encontrar Recetas con Mis Ingredientes
             </button>
           </div>
         </div>
@@ -392,10 +393,10 @@ export const DashboardView: React.FC = () => {
         <div className="flex items-center justify-between px-1">
           <div>
             <h3 className="text-lg sm:text-xl font-bold text-slate-800 tracking-tight">
-              Categorias
+              Categorías
             </h3>
             <p className="text-xs text-slate-500">
-              Explore receitas hiperproteicas separadas por ocasião
+              Explora recetas hiperproteicas separadas por ocasión
             </p>
           </div>
           <button
@@ -450,7 +451,7 @@ export const DashboardView: React.FC = () => {
                   {cat.subtitle}
                 </span>
                 <span className="shrink-0 font-bold bg-white/20 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/20 text-[11px] text-white">
-                  {cat.count} receitas
+                  {cat.count} recetas
                 </span>
               </div>
             </div>

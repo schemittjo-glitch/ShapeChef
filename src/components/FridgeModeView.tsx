@@ -16,22 +16,33 @@ import {
 // Common pantry staples that shouldn't penalize a recipe match
 const PANTRY_STAPLES = [
   'sal',
+  'pimienta',
   'pimenta',
   'agua',
+  'ajo',
   'alho',
+  'cebolla',
   'cebola',
+  'aceite',
   'azeite',
   'oleo',
   'oregano',
+  'especias',
   'temperos',
   'canela',
+  'levadura',
   'fermento',
+  'edulcorante',
   'adocante',
-  'paprica',
+  'paprika',
+  'pimenton',
   'curcuma',
+  'limon',
   'limao',
+  'hierbas',
   'ervas',
-  'cheiro verde',
+  'perejil',
+  'cilantro',
   'salsinha',
   'cebolinha',
 ];
@@ -62,29 +73,28 @@ function checkIngredientMatch(userIngredient: string, recipeIngredientItem: stri
   const rNormStem = rNorm.replace(/s\b/g, '').replace(/es\b/g, '');
   if (uStem.length >= 3 && (rItemStem.includes(uStem) || rNormStem.includes(uStem))) return true;
 
-  // Common synonym groups for Portuguese culinary terms
+  // Common synonym groups for Spanish & Portuguese culinary terms
   const synonyms: Record<string, string[]> = {
-    ovo: ['ovo', 'ovos', 'clara', 'claras', 'gema', 'gemas'],
-    clara: ['clara', 'claras', 'ovo', 'ovos'],
-    frango: ['frango', 'peito de frango', 'galinha', 'file de frango', 'sobrecoxa'],
-    carne: ['carne', 'patinho', 'moida', 'alcatra', 'maminha', 'musculo', 'bife', 'acem'],
-    patinho: ['patinho', 'carne', 'moida'],
-    peixe: ['peixe', 'tilapia', 'merluza', 'bacalhau', 'salmao', 'atum'],
-    tilapia: ['tilapia', 'peixe'],
-    salmao: ['salmao', 'peixe'],
-    atum: ['atum', 'peixe'],
-    queijo: ['queijo', 'cottage', 'ricota', 'mussarela', 'mucarela', 'parmesao', 'minas', 'requeijao', 'prato'],
-    cottage: ['cottage', 'queijo', 'ricota'],
-    ricota: ['ricota', 'queijo', 'cottage'],
-    aveia: ['aveia', 'farelo', 'flocos', 'farinha de aveia'],
-    iogurte: ['iogurte', 'grego', 'desnatado', 'coalhada'],
-    banana: ['banana', 'bananas'],
-    whey: ['whey', 'proteina em po', 'suplemento', 'isolado'],
-    tapioca: ['tapioca', 'goma', 'crepioca'],
-    batata: ['batata', 'batata doce', 'batata inglesa', 'batatas'],
-    arroz: ['arroz', 'arroz integral', 'arroz branco'],
-    tomate: ['tomate', 'molho', 'extrato', 'passata', 'tomates'],
-    brocolis: ['brocolis', 'legumes', 'couve', 'verdura'],
+    huevo: ['huevo', 'huevos', 'clara', 'claras', 'yema', 'yemas', 'ovo', 'ovos'],
+    clara: ['clara', 'claras', 'huevo', 'huevos', 'ovo', 'ovos'],
+    pollo: ['pollo', 'pechuga', 'pechuga de pollo', 'filete de pollo', 'frango', 'peito de frango'],
+    carne: ['carne', 'ternera', 'picada', 'molida', 'bistec', 'lomo', 'patinho', 'moida', 'alcatra'],
+    pescado: ['pescado', 'tilapia', 'merluza', 'bacalao', 'salmon', 'atun', 'peixe', 'atum', 'salmao'],
+    tilapia: ['tilapia', 'pescado', 'peixe'],
+    salmon: ['salmon', 'salmao', 'pescado', 'peixe'],
+    atun: ['atun', 'atum', 'pescado', 'peixe'],
+    queso: ['queso', 'cottage', 'ricota', 'mozzarella', 'parmesano', 'fresco', 'queijo', 'mussarela', 'requeijao'],
+    cottage: ['cottage', 'queso', 'ricota', 'queijo'],
+    ricota: ['ricota', 'queso', 'cottage', 'queijo'],
+    avena: ['avena', 'copos', 'harina de avena', 'aveia', 'farelo'],
+    yogur: ['yogur', 'yogurt', 'griego', 'desnatado', 'iogurte'],
+    platano: ['platano', 'banana', 'bananas', 'platanos'],
+    whey: ['whey', 'proteina en polvo', 'suplemento', 'aislado', 'proteina em po'],
+    tapioca: ['tapioca', 'crepioca'],
+    boniato: ['boniato', 'batata', 'patata', 'camote', 'batata doce'],
+    arroz: ['arroz', 'arroz integral', 'arroz blanco'],
+    tomate: ['tomate', 'salsa', 'passata', 'tomates'],
+    brocoli: ['brocoli', 'verduras', 'vegetales', 'brocolis'],
   };
 
   for (const [, group] of Object.entries(synonyms)) {
@@ -124,18 +134,18 @@ export const FridgeModeView: React.FC = () => {
 
   // Quick suggestion chips to help the user click & add common staples instantly
   const popularSuggestions = [
-    'Ovo',
-    'Peito de Frango',
-    'Queijo',
-    'Aveia',
+    'Huevo',
+    'Pechuga de Pollo',
+    'Queso',
+    'Avena',
     'Whey',
-    'Atum',
-    'Banana',
-    'Iogurte',
-    'Carne Moída',
-    'Tilápia',
+    'Atún',
+    'Plátano',
+    'Yogur',
+    'Carne Picada',
+    'Tilapia',
     'Tapioca',
-    'Batata Doce',
+    'Boniato',
   ];
 
   const handleAddQuickSuggestion = (item: string) => {
@@ -212,21 +222,17 @@ export const FridgeModeView: React.FC = () => {
     // Sort by match score descending
     allMatches.sort((a, b) => b.matchScore - a.matchScore);
 
-    // If user provided 1 ingredient: all recipes containing that ingredient are displayed
-    // If user provided 2+ ingredients: split into high matches (>=2 matched or 100% user items matched) and other suggestions
     const perfect: MatchResult[] = [];
     const almost: MatchResult[] = [];
 
     allMatches.forEach((item) => {
       if (selectedIngredients.length === 1) {
-        // With 1 ingredient, categorize by how few extra ingredients are needed
         if (item.missingNonStaples.length <= 2) {
           perfect.push(item);
         } else {
           almost.push(item);
         }
       } else {
-        // With 2+ ingredients
         if (
           item.matchedUserIngredients.length >= 2 ||
           item.matchedUserIngredients.length === selectedIngredients.length ||
@@ -252,22 +258,22 @@ export const FridgeModeView: React.FC = () => {
       <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-2">
         <div className="flex items-center gap-2 text-emerald-700 font-bold text-xs uppercase tracking-wider">
           <Refrigerator className="w-5 h-5 text-emerald-600" />
-          <span>Modo Geladeira</span>
+          <span>Modo Nevera</span>
         </div>
         <h1 className="text-2xl font-bold text-slate-800 tracking-tight">
-          O que você tem para cozinhar hoje?
+          ¿Qué tienes para cocinar hoy?
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 max-w-xl">
-          Adicione os ingredientes disponíveis e descubra instantaneamente as melhores receitas proteicas que você pode preparar agora!
+          ¡Añade los ingredientes disponibles y descubre al instante las mejores recetas proteicas que puedes preparar ahora!
         </p>
       </div>
 
       {/* 2. Interactive Ingredient Selector */}
       <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-slate-800">Adicionar Ingredientes</h3>
+          <h3 className="text-sm font-bold text-slate-800">Añadir Ingredientes</h3>
           <span className="text-xs text-slate-500 font-medium">
-            {selectedIngredients.length} adicionado{selectedIngredients.length === 1 ? '' : 's'}
+            {selectedIngredients.length} añadido{selectedIngredients.length === 1 ? '' : 's'}
           </span>
         </div>
 
@@ -277,7 +283,7 @@ export const FridgeModeView: React.FC = () => {
             type="text"
             value={customInput}
             onChange={(e) => setCustomInput(e.target.value)}
-            placeholder="Digite um ingrediente (ex: frango, ovos, queijo, aveia, atum...)"
+            placeholder="Escribe un ingrediente (ej: pollo, huevos, queso, avena, atún...)"
             className="flex-1 bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-xs sm:text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-emerald-500 focus:bg-white transition-colors"
           />
           <button
@@ -285,13 +291,13 @@ export const FridgeModeView: React.FC = () => {
             className="px-4 sm:px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs flex items-center gap-1.5 transition-colors shrink-0"
           >
             <Plus className="w-4 h-4" />
-            <span>Adicionar</span>
+            <span>Añadir</span>
           </button>
         </form>
 
         {/* Quick Suggestion Chips */}
         <div className="flex items-center gap-1.5 flex-wrap pt-1">
-          <span className="text-[11px] text-slate-400 font-medium mr-1">Sugestões rápidas:</span>
+          <span className="text-[11px] text-slate-400 font-medium mr-1">Sugerencias rápidas:</span>
           {popularSuggestions
             .filter((item) => !selectedIngredients.some((i) => normalizeText(i) === normalizeText(item)))
             .slice(0, 8)
@@ -311,7 +317,7 @@ export const FridgeModeView: React.FC = () => {
         {/* Selected badges with remove */}
         {selectedIngredients.length > 0 ? (
           <div className="flex items-center gap-1.5 flex-wrap pt-3 border-t border-slate-100">
-            <span className="text-xs text-slate-600 font-bold mr-1">Na sua bancada:</span>
+            <span className="text-xs text-slate-600 font-bold mr-1">En tu cocina:</span>
             {selectedIngredients.map((ing) => (
               <span
                 key={ing}
@@ -322,7 +328,7 @@ export const FridgeModeView: React.FC = () => {
                   type="button"
                   onClick={() => removeIngredient(ing)}
                   className="hover:text-emerald-950 text-emerald-600 transition-colors"
-                  title={`Remover ${ing}`}
+                  title={`Eliminar ${ing}`}
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -333,12 +339,12 @@ export const FridgeModeView: React.FC = () => {
               onClick={() => setSelectedIngredients([])}
               className="text-xs text-slate-400 hover:text-rose-600 underline ml-2 font-medium transition-colors"
             >
-              Limpar todos
+              Limpiar todos
             </button>
           </div>
         ) : (
           <p className="text-xs text-slate-400 pt-1">
-            Digite ou clique em uma sugestão acima para encontrar todas as receitas que usam seus ingredientes.
+            Escribe o haz clic en una sugerencia arriba para encontrar todas las recetas que usan tus ingredientes.
           </p>
         )}
       </div>
@@ -347,17 +353,17 @@ export const FridgeModeView: React.FC = () => {
       {selectedIngredients.length === 0 ? (
         <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-2 shadow-sm">
           <Refrigerator className="w-10 h-10 text-slate-300 mx-auto" />
-          <h4 className="text-sm font-bold text-slate-700">Nenhum ingrediente adicionado</h4>
+          <h4 className="text-sm font-bold text-slate-700">Ningún ingrediente añadido</h4>
           <p className="text-xs text-slate-400 max-w-md mx-auto">
-            Adicione ingredientes como ovos, frango, aveia ou queijo para ver todas as opções disponíveis no catálogo.
+            Añade ingredientes como huevos, pollo, avena o queso para ver todas las opciones disponibles en el catálogo.
           </p>
         </div>
       ) : totalFound === 0 ? (
         <div className="bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-2 shadow-sm">
           <AlertCircle className="w-10 h-10 text-amber-400 mx-auto" />
-          <h4 className="text-sm font-bold text-slate-800">Nenhuma receita encontrada</h4>
+          <h4 className="text-sm font-bold text-slate-800">Ninguna receta encontrada</h4>
           <p className="text-xs text-slate-500 max-w-md mx-auto">
-            Não encontramos receitas com os ingredientes informados. Tente adicionar ingredientes comuns como ovos, frango, aveia, whey ou queijo.
+            No encontramos recetas con los ingredientes indicados. Intenta añadir ingredientes comunes como huevos, pollo, avena, whey o queso.
           </p>
         </div>
       ) : (
@@ -368,10 +374,10 @@ export const FridgeModeView: React.FC = () => {
               <div className="flex items-center justify-between">
                 <h3 className="text-base font-bold text-slate-800 flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                  <span>Combinações Ideais ({perfectMatches.length})</span>
+                  <span>Combinaciones Ideales ({perfectMatches.length})</span>
                 </h3>
                 <span className="text-xs text-emerald-700 font-bold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                  Alta compatibilidade
+                  Alta compatibilidad
                 </span>
               </div>
 
@@ -409,7 +415,7 @@ export const FridgeModeView: React.FC = () => {
                       {missingNonStaples.length > 0 && (
                         <div className="bg-slate-50 p-2 rounded-xl border border-slate-100 text-[11px]">
                           <span className="text-slate-500 font-medium block">
-                            Outros ingredientes: <span className="text-slate-700 font-semibold">{missingNonStaples.slice(0, 2).join(', ')}</span>
+                            Otros ingredientes: <span className="text-slate-700 font-semibold">{missingNonStaples.slice(0, 2).join(', ')}</span>
                           </span>
                         </div>
                       )}
@@ -426,10 +432,10 @@ export const FridgeModeView: React.FC = () => {
               <div className="flex items-center justify-between">
                 <h3 className="text-base font-bold text-slate-800 flex items-center gap-2">
                   <AlertCircle className="w-5 h-5 text-amber-500" />
-                  <span>Outras Opções com seus Ingredientes ({almostMatches.length})</span>
+                  <span>Otras Opciones con tus Ingredientes ({almostMatches.length})</span>
                 </h3>
                 <span className="text-xs text-amber-700 font-bold bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
-                  Requer itens adicionais
+                  Requiere ingredientes adicionales
                 </span>
               </div>
 
@@ -467,7 +473,7 @@ export const FridgeModeView: React.FC = () => {
                       {missingNonStaples.length > 0 && (
                         <div className="bg-amber-50/60 p-2 rounded-xl border border-amber-200/60 text-[11px]">
                           <span className="text-amber-800 font-medium block">
-                            Faltam: <span className="text-amber-950 font-semibold">{missingNonStaples.slice(0, 2).join(', ')}</span>
+                            Faltan: <span className="text-amber-950 font-semibold">{missingNonStaples.slice(0, 2).join(', ')}</span>
                           </span>
                         </div>
                       )}

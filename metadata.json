@@ -1,6 +1,6 @@
 {
-  "name": "ShapeChef - Receitas Proteicas",
-  "description": "Aplicativo completo de receitas hiperproteicas, busca inteligente por ingredientes e proteína, modo geladeira, diário alimentar com cálculo de macros, cardápios semanais e bônus de treinos e nutrição.",
+  "name": "ShapeChef - Recetas Proteicas",
+  "description": "Aplicación completa de recetas hiperproteicas, búsqueda inteligente por ingredientes y proteína, modo refrigerador, diario alimentario con cálculo de macros, menús semanales y bonos de entrenamiento y nutrición.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

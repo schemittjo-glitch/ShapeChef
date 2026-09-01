@@ -109,6 +109,16 @@ export const RecipeModal: React.FC = () => {
               <h2 className="text-xl sm:text-2xl font-bold text-white leading-tight drop-shadow-md">
                 {selectedRecipe.name}
               </h2>
+              {selectedRecipe.quantidade_referencia && (
+                <p className="text-xs text-white/90 font-medium mt-1 drop-shadow-xs flex items-center gap-1.5">
+                  <span>🍽️</span> {selectedRecipe.quantidade_referencia}
+                  {selectedRecipe.porcoes_totais && selectedRecipe.porcoes_totais > 1 && (
+                    <span className="bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px]">
+                      Rinde {selectedRecipe.porcoes_totais} {selectedRecipe.unidade_porcao || 'porciones'}
+                    </span>
+                  )}
+                </p>
+              )}
             </div>
           </div>
 
@@ -116,7 +126,7 @@ export const RecipeModal: React.FC = () => {
             {/* 2. Main Macro Grid Cards */}
             <div className="grid grid-cols-5 gap-2 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center">
               <div className="p-1">
-                <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">Tempo</span>
+                <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">Tiempo</span>
                 <span className="text-sm font-bold text-slate-800 flex items-center justify-center gap-0.5">
                   ⏱️ {selectedRecipe.prepTime}m
                 </span>
@@ -128,7 +138,7 @@ export const RecipeModal: React.FC = () => {
                 </span>
               </div>
               <div className="p-1 border-l border-slate-200">
-                <span className="text-[10px] uppercase font-bold text-amber-700 block mb-0.5">Calorias</span>
+                <span className="text-[10px] uppercase font-bold text-amber-700 block mb-0.5">Calorías</span>
                 <span className="text-sm font-bold text-slate-800 flex items-center justify-center gap-0.5">
                   🔥 {selectedRecipe.calories}
                 </span>
@@ -140,30 +150,38 @@ export const RecipeModal: React.FC = () => {
                 </span>
               </div>
               <div className="p-1 border-l border-slate-200">
-                <span className="text-[10px] uppercase font-bold text-slate-600 block mb-0.5">Gordura</span>
+                <span className="text-[10px] uppercase font-bold text-slate-600 block mb-0.5">Grasas</span>
                 <span className="text-sm font-bold text-slate-800 flex items-center justify-center gap-0.5">
                   🥑 {selectedRecipe.fats}g
                 </span>
               </div>
             </div>
 
+            {/* Reference Portion Note if available */}
+            {selectedRecipe.porcao_referencia && (
+              <div className="bg-amber-50/70 border border-amber-200/80 px-3.5 py-2 rounded-xl text-xs text-amber-900 flex items-center gap-2">
+                <span>ℹ️</span>
+                <span><strong>Tabla basada en:</strong> {selectedRecipe.porcao_referencia}</span>
+              </div>
+            )}
+
             {/* 3. Action Buttons Row */}
             <div className="space-y-2.5 bg-slate-50 p-4 rounded-2xl border border-slate-200">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                 {/* Meal type selector for Diary */}
                 <div className="flex items-center gap-2 bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs flex-1 shadow-xs">
-                  <span className="text-slate-500 font-medium">Refeição:</span>
+                  <span className="text-slate-500 font-medium">Comida:</span>
                   <select
                     id="select-meal-type"
                     value={selectedMealType}
                     onChange={(e) => setSelectedMealType(e.target.value as MealType)}
                     className="bg-transparent text-slate-800 font-bold focus:outline-none flex-1 cursor-pointer"
                   >
-                    <option value="cafe">Café da manhã</option>
-                    <option value="almoco">Almoço</option>
-                    <option value="lanche">Lanche</option>
-                    <option value="jantar">Jantar</option>
-                    <option value="ceia">Ceia</option>
+                    <option value="cafe">Desayuno</option>
+                    <option value="almoco">Almuerzo</option>
+                    <option value="lanche">Merienda</option>
+                    <option value="jantar">Cena</option>
+                    <option value="ceia">Snack nocturno</option>
                   </select>
                 </div>
 
@@ -180,12 +198,12 @@ export const RecipeModal: React.FC = () => {
                   {isLoggedSuccess ? (
                     <>
                       <CheckCircle2 className="w-4 h-4" />
-                      <span>Registrado no Diário!</span>
+                      <span>¡Registrado en el Diario!</span>
                     </>
                   ) : (
                     <>
                       <PlusCircle className="w-4 h-4" />
-                      <span>Adicionar ao Diário</span>
+                      <span>Añadir al Diario</span>
                     </>
                   )}
                 </button>
@@ -206,12 +224,12 @@ export const RecipeModal: React.FC = () => {
                   {isShoppingSuccess ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-700" />
-                      <span>Ingredientes Adicionados!</span>
+                      <span>¡Ingredientes Añadidos!</span>
                     </>
                   ) : (
                     <>
                       <ShoppingCart className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>Adicionar à Lista de Compras</span>
+                      <span>Añadir a la Lista de Compras</span>
                     </>
                   )}
                 </button>
@@ -225,7 +243,7 @@ export const RecipeModal: React.FC = () => {
                   <span>🛒</span> Ingredientes
                 </h3>
                 <span className="text-xs text-slate-500 font-medium">
-                  {selectedRecipe.ingredients.length} itens (toque para marcar)
+                  {selectedRecipe.ingredients.length} ingredientes (toca para marcar)
                 </span>
               </div>
 
@@ -254,8 +272,8 @@ export const RecipeModal: React.FC = () => {
                       <div className="flex-1 text-xs">
                         <strong className={isChecked ? 'text-slate-400' : 'text-slate-800'}>
                           {ing.item}
-                        </strong>{' '}
-                        <span className="text-slate-500">({ing.amount})</span>
+                        </strong>
+                        {ing.amount ? <span className="text-slate-500"> ({ing.amount})</span> : null}
                       </div>
                     </div>
                   );
@@ -266,7 +284,7 @@ export const RecipeModal: React.FC = () => {
             {/* 5. Step-by-Step Numbered Instructions */}
             <div className="space-y-3">
               <h3 className="text-base font-bold text-slate-800 flex items-center gap-2">
-                <span>👨‍🍳</span> Modo de Preparo
+                <span>👨‍🍳</span> Modo de Preparación
               </h3>
 
               <div className="space-y-3">
@@ -285,23 +303,42 @@ export const RecipeModal: React.FC = () => {
             </div>
 
             {/* 6. Chef's Secret Tip */}
-            {selectedRecipe.tips && (
+            {selectedRecipe.tips && !selectedRecipe.storageMethod && (
               <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-1">
                 <span className="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
-                  💡 Dica do Chef ShapeChef
+                  💡 Consejo del Chef ShapeChef
                 </span>
                 <p className="text-xs sm:text-sm text-emerald-800 leading-relaxed">{selectedRecipe.tips}</p>
+              </div>
+            )}
+
+            {/* Storage & Shelf Life */}
+            {(selectedRecipe.storageMethod || selectedRecipe.shelfLife) && (
+              <div className="bg-emerald-50/70 border border-emerald-200/80 p-4 rounded-2xl space-y-1.5 text-xs">
+                <span className="font-bold text-emerald-900 flex items-center gap-1.5">
+                  <span>🧊</span> Conservación y Almacenamiento
+                </span>
+                {selectedRecipe.shelfLife && (
+                  <p className="text-emerald-800">
+                    <strong>Caducidad:</strong> {selectedRecipe.shelfLife}
+                  </p>
+                )}
+                {selectedRecipe.storageMethod && (
+                  <p className="text-emerald-800">
+                    <strong>Cómo conservar:</strong> {selectedRecipe.storageMethod}
+                  </p>
+                )}
               </div>
             )}
 
             {/* 7. Detailed Nutritional Facts */}
             <div className="space-y-2 border-t border-slate-100 pt-4">
               <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                Tabela Nutricional por Porção
+                Tabla Nutricional por Porción
               </h4>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                 <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                  <span className="text-slate-500 text-[11px] block">Energia</span>
+                  <span className="text-slate-500 text-[11px] block">Energía</span>
                   <span className="font-bold text-slate-800">{selectedRecipe.calories} kcal</span>
                 </div>
                 <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
@@ -309,17 +346,17 @@ export const RecipeModal: React.FC = () => {
                   <span className="font-bold text-emerald-700">{selectedRecipe.protein}g</span>
                 </div>
                 <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                  <span className="text-slate-500 text-[11px] block">Carboidratos</span>
+                  <span className="text-slate-500 text-[11px] block">Carbohidratos</span>
                   <span className="font-bold text-blue-700">{selectedRecipe.carbs}g</span>
                 </div>
                 <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                  <span className="text-slate-500 text-[11px] block">Gorduras Totais</span>
+                  <span className="text-slate-500 text-[11px] block">Grasas Totales</span>
                   <span className="font-bold text-slate-700">{selectedRecipe.fats}g</span>
                 </div>
               </div>
               {selectedRecipe.fiber && (
                 <p className="text-[11px] text-slate-500">
-                  🌾 Fibras Alimentares: <strong>{selectedRecipe.fiber}g</strong>
+                  🌾 Fibra Alimentaria: <strong>{selectedRecipe.fiber}g</strong>
                 </p>
               )}
             </div>

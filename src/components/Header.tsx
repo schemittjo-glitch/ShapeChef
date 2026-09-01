@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { ChefHat, ShoppingCart, Heart, PlusCircle, Refrigerator } from 'lucide-react';
+import { ChefHat, ShoppingCart, Heart, PlusCircle, Refrigerator, Download } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const {
@@ -34,13 +34,10 @@ export const Header: React.FC = () => {
         {/* Mobile Brand (Visible only on < lg screens) */}
         <div
           onClick={() => setActiveTab('home')}
-          className="flex lg:hidden items-center gap-2 cursor-pointer"
+          className="flex lg:hidden items-center gap-1.5 cursor-pointer"
         >
-          <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold italic shadow-sm">
-            S
-          </div>
-          <span className="font-black text-lg tracking-tight text-slate-900">
-            ShapeChef
+          <span className="font-black text-xl tracking-tight text-slate-900">
+            Shape<span className="text-emerald-600">Chef</span>
           </span>
           <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">
             PRO
@@ -49,33 +46,44 @@ export const Header: React.FC = () => {
 
         {/* Desktop Quick Breadcrumb / Greeting context */}
         <div className="hidden lg:flex items-center gap-2 text-sm text-slate-500">
-          <span className="font-bold text-slate-800">ShapeChef</span>
+          <span className="font-bold text-slate-800">Shape<span className="text-emerald-600">Chef</span></span>
           <span>•</span>
           <span className="capitalize font-medium text-slate-600">
             {activeTab === 'home'
-              ? 'Painel Geral'
+              ? 'Panel General'
               : activeTab === 'recipes'
               ? isFavoritesActive
-                ? `Receitas Favoritas (${favorites.length})`
-                : 'Catálogo de Receitas'
+                ? `Recetas Favoritas (${favorites.length})`
+                : 'Catálogo de Recetas'
               : activeTab === 'mealplan'
-              ? 'Semana Pronta'
+              ? 'Menú Semanal'
               : activeTab === 'diary'
-              ? 'Diário Alimentar'
+              ? 'Diario Alimentario'
               : activeTab === 'fridge'
-              ? 'Modo Geladeira'
+              ? 'Modo Refrigerador'
               : activeTab === 'shopping'
               ? 'Lista de Compras'
               : activeTab === 'history'
-              ? 'Histórico & Evolução'
+              ? 'Historial & Evolución'
               : activeTab === 'profile'
-              ? 'Perfil & Metas'
-              : 'Bônus Exclusivos'}
+              ? 'Perfil & Objetivos'
+              : 'Bonos Exclusivos'}
           </span>
         </div>
 
         {/* Header Action Buttons */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Install / Add Shortcut Button */}
+          <button
+            id="header-btn-install-pwa"
+            onClick={() => window.dispatchEvent(new Event('open-shapechef-install'))}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-full text-xs shadow-xs transition-all active:scale-95 cursor-pointer"
+            title="Instalar App y Añadir a la Pantalla de Inicio"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Instalar App</span>
+          </button>
+
           {/* Quick Action: Registrar Refeição */}
           <button
             id="header-btn-quick-log"
@@ -83,7 +91,7 @@ export const Header: React.FC = () => {
             className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold rounded-full text-xs border border-emerald-200 transition-colors shadow-xs"
           >
             <PlusCircle className="w-3.5 h-3.5" />
-            <span>+ Registrar Refeição</span>
+            <span>+ Registrar Comida</span>
           </button>
 
           {/* Quick Action: Modo Geladeira */}
@@ -93,7 +101,7 @@ export const Header: React.FC = () => {
             className="hidden md:flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full text-xs shadow-xs transition-colors"
           >
             <Refrigerator className="w-3.5 h-3.5" />
-            <span>Modo Geladeira</span>
+            <span>Modo Refrigerador</span>
           </button>
 
           {/* Favorites Shortcut - Top Favorite Trigger */}
@@ -109,8 +117,8 @@ export const Header: React.FC = () => {
             }`}
             title={
               isFavoritesActive
-                ? 'Exibindo apenas favoritos (clique para ver todas)'
-                : 'Ver apenas receitas favoritas'
+                ? 'Mostrando solo favoritos (haz clic para ver todas)'
+                : 'Ver solo recetas favoritas'
             }
           >
             <Heart

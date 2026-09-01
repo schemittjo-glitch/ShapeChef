@@ -289,7 +289,7 @@ function generateInitialLogs(): Record<string, MealLogItem[]> {
 }
 
 export const DEFAULT_USER_PROFILE: UserProfile = {
-  name: 'Meu Perfil',
+  name: 'Mi Perfil',
   age: 25,
   gender: 'masculino',
   weight: 70,
@@ -491,7 +491,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       {
         mealType,
         name: recipe.name,
-        amount: '1 porção',
+        amount: '1 porción',
         calories: recipe.calories,
         protein: recipe.protein,
         carbs: recipe.carbs,
@@ -531,14 +531,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const addRecipeToShoppingList = (recipe: Recipe) => {
     if (!recipe || !recipe.ingredients) return;
     const newItems: ShoppingItem[] = recipe.ingredients.map((ing) => {
-      let category: ShoppingItem['category'] = 'Mercearia & Grãos';
+      let category: ShoppingItem['category'] = 'Despensa & Granos';
       const norm = (ing.normalizedName || ing.item || '').toLowerCase();
-      if (norm.includes('frango') || norm.includes('carne') || norm.includes('peixe') || norm.includes('atum') || norm.includes('salmao')) {
+      if (
+        norm.includes('pollo') ||
+        norm.includes('carne') ||
+        norm.includes('pescado') ||
+        norm.includes('atun') ||
+        norm.includes('salmon') ||
+        norm.includes('frango') ||
+        norm.includes('peixe')
+      ) {
         category = 'Carnes & Proteínas';
-      } else if (norm.includes('ovo') || norm.includes('queijo') || norm.includes('iogurte') || norm.includes('leite')) {
-        category = 'Laticínios & Ovos';
-      } else if (norm.includes('tomate') || norm.includes('banana') || norm.includes('brocolis') || norm.includes('batata') || norm.includes('morango') || norm.includes('limao') || norm.includes('salada')) {
-        category = 'Hortifruti';
+      } else if (
+        norm.includes('huevo') ||
+        norm.includes('queso') ||
+        norm.includes('yogur') ||
+        norm.includes('leche') ||
+        norm.includes('ovo') ||
+        norm.includes('queijo') ||
+        norm.includes('iogurte')
+      ) {
+        category = 'Lácteos & Huevos';
+      } else if (
+        norm.includes('tomate') ||
+        norm.includes('platano') ||
+        norm.includes('banana') ||
+        norm.includes('brocoli') ||
+        norm.includes('patata') ||
+        norm.includes('fresa') ||
+        norm.includes('limon') ||
+        norm.includes('ensalada') ||
+        norm.includes('verdura') ||
+        norm.includes('fruta')
+      ) {
+        category = 'Frutas & Verduras';
       }
 
       return {

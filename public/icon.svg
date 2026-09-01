@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <g filter="url(#dropShadow)" transform="translate(64, 56) scale(0.75)">
+    <!-- Chef Hat outline -->
+    <path fill="#ffffff" d="M256,48 C185.3,48 128,105.3 128,176 C128,181.7 128.4,187.3 129.2,192.8 C103.7,204.6 86,230.3 86,260 C86,298.7 117.3,330 156,330 C160.2,330 164.3,329.6 168.3,328.8 C180.7,358.9 210.4,380 245.3,380 L266.7,380 C301.6,380 331.3,358.9 343.7,328.8 C347.7,329.6 351.8,330 356,330 C394.7,330 426,298.7 426,260 C426,230.3 408.3,204.6 382.8,192.8 C383.6,187.3 384,181.7 384,176 C384,105.3 326.7,48 256,48 Z"/>
+    <!-- Hat Brim base band -->
+    <rect x="160" y="396" width="192" height="42" rx="14" fill="#ffffff" opacity="0.95" />
+    <!-- Fork & Knife / Star accent in hat -->
+    <circle cx="256" cy="230" r="16" fill="#059669" />
+  </g>
+</svg>

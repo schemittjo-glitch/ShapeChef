@@ -9,11 +9,20 @@ import {
   CheckCircle2,
   Table as TableIcon,
   Sparkles,
+  ExternalLink,
 } from 'lucide-react';
 
 export const BonusHubView: React.FC = () => {
   const { setActiveTab } = useApp();
   const [selectedBonus, setSelectedBonus] = useState<BonusMaterial | null>(null);
+
+  const handleBonusClick = (bonus: BonusMaterial) => {
+    if (bonus.externalUrl) {
+      window.open(bonus.externalUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      setSelectedBonus(bonus);
+    }
+  };
 
   if (selectedBonus) {
     return (
@@ -22,15 +31,28 @@ export const BonusHubView: React.FC = () => {
         <div className="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
           <button
             onClick={() => setSelectedBonus(null)}
-            className="flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-slate-900 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 transition-colors"
+            className="flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-slate-900 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Voltar aos Bônus</span>
+            <span>Volver a los Bonos</span>
           </button>
 
-          <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-            {selectedBonus.tag}
-          </span>
+          <div className="flex items-center gap-2">
+            {selectedBonus.externalUrl && (
+              <a
+                href={selectedBonus.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-full border border-emerald-200 transition-colors"
+              >
+                <span>Acceder al Enlace Oficial</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            )}
+            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              {selectedBonus.tag}
+            </span>
+          </div>
         </div>
 
         {/* Bonus Content Card */}
@@ -106,7 +128,7 @@ export const BonusHubView: React.FC = () => {
                 {sec.tips && sec.tips.length > 0 && (
                   <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 space-y-2 pt-3">
                     <span className="text-[11px] font-bold text-emerald-900 block uppercase tracking-wider">
-                      💡 Dicas Práticas do Especialista
+                      💡 Consejos Prácticos del Especialista
                     </span>
                     {sec.tips.map((t, tIdx) => (
                       <div key={tIdx} className="flex items-start gap-2 text-xs text-emerald-800">
@@ -120,20 +142,41 @@ export const BonusHubView: React.FC = () => {
             ))}
           </div>
 
+          {/* External link CTA if exists */}
+          {selectedBonus.externalUrl && (
+            <div className="bg-emerald-50 p-6 rounded-2xl border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <h4 className="text-sm font-bold text-emerald-900">Accede al Material Completo</h4>
+                <p className="text-xs text-emerald-700">
+                  Haz clic en el botón para abrir el archivo y contenido original.
+                </p>
+              </div>
+              <a
+                href={selectedBonus.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-xs hover:bg-emerald-700 whitespace-nowrap transition-colors flex items-center gap-2"
+              >
+                <span>Acceder al Enlace Externo</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+          )}
+
           {/* Action button if macro guide */}
           {selectedBonus.type === 'macros' && (
             <div className="bg-emerald-50 p-6 rounded-2xl border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <h4 className="text-sm font-bold text-emerald-900">Pronto para aplicar seus macros?</h4>
+                <h4 className="text-sm font-bold text-emerald-900">¿Listo para aplicar tus macros?</h4>
                 <p className="text-xs text-emerald-700">
-                  Abra nossa calculadora integrada para definir seu plano exato em 1 clique.
+                  Abre nuestra calculadora integrada para definir tu plan exacto en 1 clic.
                 </p>
               </div>
               <button
                 onClick={() => setActiveTab('profile')}
-                className="px-5 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-xs hover:bg-emerald-700 whitespace-nowrap transition-colors"
+                className="px-5 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-xs hover:bg-emerald-700 whitespace-nowrap transition-colors cursor-pointer"
               >
-                Abrir Minha Calculadora
+                Abrir Mi Calculadora
               </button>
             </div>
           )}
@@ -148,13 +191,13 @@ export const BonusHubView: React.FC = () => {
       <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-2">
         <div className="flex items-center gap-2 text-emerald-700 font-bold text-xs uppercase tracking-wider">
           <Gift className="w-5 h-5 text-emerald-600" />
-          <span>Área de Bônus ShapeChef</span>
+          <span>Área de Bonos ShapeChef</span>
         </div>
         <h1 className="text-2xl font-bold text-slate-800 tracking-tight">
-          Materiais & Guias Exclusivos
+          Materiales y Guías Exclusivas
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 max-w-xl">
-          Acesse fichas de treino estruturadas, guias avançados de macronutrientes e técnicas para atingir sua meta de proteína com máxima economia.
+          Accede a fichas de entrenamiento estructuradas, guías avanzadas de macronutrientes y técnicas para alcanzar tu objetivo de proteína con el máximo ahorro.
         </p>
       </div>
 
@@ -164,30 +207,38 @@ export const BonusHubView: React.FC = () => {
           <div
             key={bonus.id}
             id={`card-${bonus.id}`}
-            onClick={() => setSelectedBonus(bonus)}
-            className="bg-white rounded-2xl border border-slate-200 hover:border-emerald-300 p-6 shadow-sm hover:shadow-md cursor-pointer group transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between space-y-4"
+            onClick={() => handleBonusClick(bonus)}
+            className="bg-white rounded-2xl border border-slate-200 hover:border-emerald-400 p-6 shadow-sm hover:shadow-md cursor-pointer group transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between space-y-4"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-2xl group-hover:scale-105 transition-transform">
                   {bonus.coverIcon}
                 </div>
-                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 flex items-center gap-1">
+                  {bonus.externalUrl && <ExternalLink className="w-3 h-3 text-emerald-600" />}
                   {bonus.tag}
                 </span>
               </div>
 
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">
-                  {bonus.title}
+                <h3 className="text-base font-bold text-slate-800 group-hover:text-emerald-700 transition-colors flex items-center justify-between gap-1">
+                  <span>{bonus.title}</span>
+                  {bonus.externalUrl && (
+                    <ExternalLink className="w-4 h-4 text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                  )}
                 </h3>
                 <p className="text-xs text-slate-500 line-clamp-2">{bonus.subtitle}</p>
               </div>
             </div>
 
             <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700 group-hover:text-emerald-800">
-              <span>Ler Guia Completo</span>
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <span>{bonus.externalUrl ? 'Abrir Material' : 'Leer Guía Completa'}</span>
+              {bonus.externalUrl ? (
+                <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              ) : (
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              )}
             </div>
           </div>
         ))}
@@ -195,3 +246,4 @@ export const BonusHubView: React.FC = () => {
     </div>
   );
 };
+

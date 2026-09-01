@@ -72,11 +72,11 @@ export const FoodDiaryView: React.FC = () => {
   const caloriesRemaining = Math.max(0, caloriesGoal - caloriesConsumed);
 
   const mealCategories: { id: MealType; title: string; icon: string }[] = [
-    { id: 'cafe', title: 'Café da manhã', icon: '🍳' },
-    { id: 'almoco', title: 'Almoço', icon: '🍲' },
-    { id: 'lanche', title: 'Lanches', icon: '🥪' },
-    { id: 'jantar', title: 'Jantar', icon: '🥗' },
-    { id: 'ceia', title: 'Ceia', icon: '🌙' },
+    { id: 'cafe', title: 'Desayuno', icon: '🍳' },
+    { id: 'almoco', title: 'Almuerzo', icon: '🍲' },
+    { id: 'lanche', title: 'Meriendas', icon: '🥪' },
+    { id: 'jantar', title: 'Cena', icon: '🥗' },
+    { id: 'ceia', title: 'Snack Nocturno', icon: '🌙' },
   ];
 
   const handleSaveManualItem = (e: React.FormEvent) => {
@@ -86,7 +86,7 @@ export const FoodDiaryView: React.FC = () => {
     addMealItem({
       mealType: targetMealType,
       name: manualName.trim(),
-      amount: manualAmount || '1 porção',
+      amount: manualAmount || '1 porción',
       calories: Number(manualCalories) || 0,
       protein: Number(manualProtein) || 0,
       carbs: Number(manualCarbs) || 0,
@@ -101,7 +101,7 @@ export const FoodDiaryView: React.FC = () => {
     addMealItem({
       mealType: targetMealType,
       name: recipe.name,
-      amount: '1 porção',
+      amount: '1 porción',
       calories: recipe.calories,
       protein: recipe.protein,
       carbs: recipe.carbs,
@@ -137,7 +137,7 @@ export const FoodDiaryView: React.FC = () => {
           />
           {isToday && (
             <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">
-              HOJE
+              HOY
             </span>
           )}
         </div>
@@ -153,9 +153,9 @@ export const FoodDiaryView: React.FC = () => {
       {/* 2. Daily Macro Status Card */}
       <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold text-slate-800">Resumo do Dia</h2>
+          <h2 className="text-base font-bold text-slate-800">Resumen del Día</h2>
           <span className="text-xs text-slate-500 font-medium">
-            Faltam: <strong className="text-emerald-700">{proteinRemaining}g de proteína</strong>
+            Faltan: <strong className="text-emerald-700">{proteinRemaining}g de proteína</strong>
           </span>
         </div>
 
@@ -167,40 +167,40 @@ export const FoodDiaryView: React.FC = () => {
               {proteinConsumed} <span className="text-xs font-normal text-slate-500">/ {proteinGoal}g</span>
             </div>
             <div className="text-[10px] text-slate-500 mt-1">
-              Restam: <strong className="text-emerald-700">{proteinRemaining}g</strong>
+              Restan: <strong className="text-emerald-700">{proteinRemaining}g</strong>
             </div>
           </div>
 
           {/* Calories */}
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-            <span className="text-[11px] text-amber-700 font-bold block mb-0.5">🔥 Calorias</span>
+            <span className="text-[11px] text-amber-700 font-bold block mb-0.5">🔥 Calorías</span>
             <div className="text-base font-black text-slate-800">
               {caloriesConsumed} <span className="text-xs font-normal text-slate-500">/ {caloriesGoal}</span>
             </div>
             <div className="text-[10px] text-slate-500 mt-1">
-              Restam: <strong className="text-amber-700">{caloriesRemaining} kcal</strong>
+              Restan: <strong className="text-amber-700">{caloriesRemaining} kcal</strong>
             </div>
           </div>
 
           {/* Carbs */}
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-            <span className="text-[11px] text-blue-700 font-bold block mb-0.5">🍚 Carboidratos</span>
+            <span className="text-[11px] text-blue-700 font-bold block mb-0.5">🍚 Carbohidratos</span>
             <div className="text-base font-black text-slate-800">
               {carbsConsumed} <span className="text-xs font-normal text-slate-500">/ {carbsGoal}g</span>
             </div>
             <div className="text-[10px] text-slate-500 mt-1">
-              Restam: <strong className="text-blue-700">{Math.max(0, carbsGoal - carbsConsumed)}g</strong>
+              Restan: <strong className="text-blue-700">{Math.max(0, carbsGoal - carbsConsumed)}g</strong>
             </div>
           </div>
 
           {/* Fats */}
           <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-            <span className="text-[11px] text-slate-700 font-bold block mb-0.5">🥑 Gorduras</span>
+            <span className="text-[11px] text-slate-700 font-bold block mb-0.5">🥑 Grasas</span>
             <div className="text-base font-black text-slate-800">
               {fatsConsumed} <span className="text-xs font-normal text-slate-500">/ {fatsGoal}g</span>
             </div>
             <div className="text-[10px] text-slate-500 mt-1">
-              Restam: <strong className="text-slate-700">{Math.max(0, fatsGoal - fatsConsumed)}g</strong>
+              Restan: <strong className="text-slate-700">{Math.max(0, fatsGoal - fatsConsumed)}g</strong>
             </div>
           </div>
         </div>
@@ -210,7 +210,7 @@ export const FoodDiaryView: React.FC = () => {
       {proteinRemaining > 0 && (
         <div className="bg-emerald-50 p-5 rounded-2xl border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
           <div className="text-xs sm:text-sm text-emerald-900">
-            Faltam <strong className="text-emerald-700 font-black">{proteinRemaining}g de proteína</strong> para bater sua meta diária!
+            ¡Faltan <strong className="text-emerald-700 font-black">{proteinRemaining}g de proteína</strong> para alcanzar tu objetivo diario!
           </div>
           <button
             onClick={() => {
@@ -219,7 +219,7 @@ export const FoodDiaryView: React.FC = () => {
             }}
             className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5"
           >
-            <span>Encontrar receitas com {proteinRemaining}g+</span>
+            <span>Encontrar recetas con {proteinRemaining}g+</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -258,10 +258,10 @@ export const FoodDiaryView: React.FC = () => {
                       setIsRecipePickerOpen(true);
                     }}
                     className="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-bold flex items-center gap-1"
-                    title="Adicionar receita do aplicativo"
+                    title="Añadir receta de la aplicación"
                   >
                     <span>🍳</span>
-                    <span className="hidden sm:inline">Receita do App</span>
+                    <span className="hidden sm:inline">Receta de la App</span>
                   </button>
 
                   {/* Option 2: Add Manual Food */}
@@ -271,7 +271,7 @@ export const FoodDiaryView: React.FC = () => {
                       setIsManualModalOpen(true);
                     }}
                     className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold flex items-center gap-1 shadow-xs"
-                    title="Adicionar alimento avulso"
+                    title="Añadir alimento manual"
                   >
                     <Plus className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Manual</span>
@@ -283,7 +283,7 @@ export const FoodDiaryView: React.FC = () => {
               <div className="p-3 divide-y divide-slate-100">
                 {items.length === 0 ? (
                   <p className="text-xs text-slate-400 py-3 text-center italic">
-                    Nenhum alimento registrado nesta refeição
+                    Ningún alimento registrado en esta comida
                   </p>
                 ) : (
                   items.map((item) => (
@@ -312,7 +312,7 @@ export const FoodDiaryView: React.FC = () => {
                       <button
                         onClick={() => removeMealItem(item.id, selectedDate)}
                         className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors opacity-80 group-hover:opacity-100"
-                        title="Remover item"
+                        title="Eliminar elemento"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -343,11 +343,11 @@ export const FoodDiaryView: React.FC = () => {
 
             <form onSubmit={handleSaveManualItem} className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Nome do alimento</label>
+                <label className="block text-slate-700 font-bold mb-1">Nombre del alimento</label>
                 <input
                   type="text"
                   required
-                  placeholder="ex: Filé de frango grelhado, Shake de whey..."
+                  placeholder="ej: Pechuga de pollo a la plancha, Batido de whey..."
                   value={manualName}
                   onChange={(e) => setManualName(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-800 focus:border-emerald-500 focus:bg-white"
@@ -355,10 +355,10 @@ export const FoodDiaryView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Quantidade / Porção</label>
+                <label className="block text-slate-700 font-bold mb-1">Cantidad / Porción</label>
                 <input
                   type="text"
-                  placeholder="ex: 150g, 2 fatias, 1 scoop"
+                  placeholder="ej: 150g, 2 rebanadas, 1 scoop"
                   value={manualAmount}
                   onChange={(e) => setManualAmount(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-800 focus:border-emerald-500 focus:bg-white"
@@ -376,7 +376,7 @@ export const FoodDiaryView: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-amber-700 font-bold mb-1">Calorias (kcal)</label>
+                  <label className="block text-amber-700 font-bold mb-1">Calorías (kcal)</label>
                   <input
                     type="number"
                     value={manualCalories}
@@ -385,7 +385,7 @@ export const FoodDiaryView: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-blue-700 font-bold mb-1">Carboidratos (g)</label>
+                  <label className="block text-blue-700 font-bold mb-1">Carbohidratos (g)</label>
                   <input
                     type="number"
                     value={manualCarbs}
@@ -394,7 +394,7 @@ export const FoodDiaryView: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Gorduras (g)</label>
+                  <label className="block text-slate-700 font-bold mb-1">Grasas (g)</label>
                   <input
                     type="number"
                     value={manualFats}
@@ -416,7 +416,7 @@ export const FoodDiaryView: React.FC = () => {
                   type="submit"
                   className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-xs"
                 >
-                  Adicionar Refeição
+                  Añadir Comida
                 </button>
               </div>
             </form>
@@ -430,7 +430,7 @@ export const FoodDiaryView: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-lg p-6 space-y-4 max-h-[85vh] flex flex-col shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="text-base font-bold text-slate-800 flex items-center gap-2">
-                <span>🍳</span> Escolha uma Receita do App
+                <span>🍳</span> Elige una Receta de la App
               </h3>
               <button
                 onClick={() => setIsRecipePickerOpen(false)}
@@ -446,7 +446,7 @@ export const FoodDiaryView: React.FC = () => {
                 type="text"
                 value={pickerSearch}
                 onChange={(e) => setPickerSearch(e.target.value)}
-                placeholder="Buscar receita por nome..."
+                placeholder="Buscar receta por nombre..."
                 className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:bg-white"
               />
             </div>
@@ -465,7 +465,7 @@ export const FoodDiaryView: React.FC = () => {
                     </span>
                   </div>
                   <button className="px-3 py-1 bg-emerald-600 text-white font-bold text-xs rounded-lg hover:bg-emerald-700 shadow-xs">
-                    Adicionar
+                    Añadir
                   </button>
                 </div>
               ))}
